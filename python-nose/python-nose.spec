@@ -58,6 +58,8 @@ cp %{buildroot}/%{_bindir}/nosetests-2.7 %{buildroot}/%{_bindir}/nosetests-2.7-2
 ln -sf %{_bindir}/nosetests-2.7-2 %{buildroot}/%{_bindir}/nosetests-2.7-%{python2_version}
 cp %{buildroot}/%{_bindir}/nosetests %{buildroot}/%{_bindir}/nosetests-2
 ln -sf %{_bindir}/nosetests-2 %{buildroot}/%{_bindir}/nosetests-%{python2_version}
+mkdir -p  %{buildroot}/%{_mandir}/man1
+mv %{buildroot}/usr/man/man1/* %{buildroot}/%{_mandir}/man1
 
 
 %check
@@ -73,6 +75,7 @@ ln -sf %{_bindir}/nosetests-2 %{buildroot}/%{_bindir}/nosetests-%{python2_versio
 %{_bindir}/nosetests-%{python2_version}
 %{python2_sitelib}/%{pypi_name}
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
+%{_mandir}
 
 %files -n python-%{pypi_name}-doc
 %doc html 
