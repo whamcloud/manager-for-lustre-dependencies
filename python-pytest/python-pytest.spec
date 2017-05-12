@@ -78,7 +78,7 @@ ln -sf %{_bindir}/py.test-2 %{buildroot}/%{_bindir}/py.test-%{python2_version}
 %doc html 
 
 %changelog
-* Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> - 3.0.7-1
+* Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0.7-1
 - Initial package.
   * g/python2-setuptools/s//python-setuptools/g
   * set PYTHONPATH=$PWD for sphinx-build
