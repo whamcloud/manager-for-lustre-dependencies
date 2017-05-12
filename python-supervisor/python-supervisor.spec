@@ -27,7 +27,7 @@ of ...
 %package -n     python2-%{pypi_name}
 Summary:        A system for controlling process state under UNIX
  
-Requires:       python2-setuptools
+Requires:       python-setuptools
 Requires:       python-meld3 >= 0.6.5
 %description -n python2-%{pypi_name}
 Supervisor Supervisor is a client/server system that allows its users to
