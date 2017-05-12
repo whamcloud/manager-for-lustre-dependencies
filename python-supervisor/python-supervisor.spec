@@ -91,7 +91,7 @@ ln -sf %{_bindir}/pidproxy-2 %{buildroot}/%{_bindir}/pidproxy-%{python2_version}
 %doc html 
 
 %changelog
-* Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> - 3.0b1-1
+* Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-1
 - Initial package.
   * change supervisor_3.3.1_py2.7_nspkg.pth to supervisor-3.0b1-py2.7-nspkg.pth
     in %files
