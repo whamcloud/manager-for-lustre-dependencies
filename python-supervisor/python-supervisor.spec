@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        3.0b1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A system for controlling process state under UNIX
 
 License:        BSD-derived (http://www.repoze.org/LICENSE.txt)
@@ -91,6 +91,9 @@ ln -sf %{_bindir}/pidproxy-2 %{buildroot}/%{_bindir}/pidproxy-%{python2_version}
 %doc html 
 
 %changelog
+* Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-2
+- s/python2-setuptools/python-setuptools/g (brian.murrell@intel.com)
+
 * Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-1
 - Initial package.
   * change supervisor_3.3.1_py2.7_nspkg.pth to supervisor-3.0b1-py2.7-nspkg.pth
