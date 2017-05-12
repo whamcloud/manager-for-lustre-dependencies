@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        nose extends unittest to make testing easier
 
 License:        GNU LGPL
@@ -81,6 +81,9 @@ mv %{buildroot}/usr/man/man1/* %{buildroot}/%{_mandir}/man1
 %doc html 
 
 %changelog
+* Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> 1.3.0-2
+- Move /usr/man/man1/* to and package /usr/man/man1/*
+
 * Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> 1.3.0-1
 - Initial package using pyp2rpm
   - s/python2-setuptools/python-setuptools/g
