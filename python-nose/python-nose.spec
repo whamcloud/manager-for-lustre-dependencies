@@ -78,5 +78,6 @@ ln -sf %{_bindir}/nosetests-2 %{buildroot}/%{_bindir}/nosetests-%{python2_versio
 %doc html 
 
 %changelog
-* Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> - 1.3.0-1
-- Initial package.
+* Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> 1.3.0-1
+- Initial package using pyp2rpm
+  - s/python2-setuptools/python-setuptools/g
