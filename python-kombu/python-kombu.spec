@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Messaging library for Python
 
 License:        TODO
@@ -74,6 +74,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html 
 
 %changelog
+* Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0.19-2
+- Add PYTHONPATH=$PWD to sphinx-build docs html
+- Add BuildRequires: python-django
 * Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0.19-1
 - Initial package.
   * g/python2-setuptools/s//python-setuptools/g
