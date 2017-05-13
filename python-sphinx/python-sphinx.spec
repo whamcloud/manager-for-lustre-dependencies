@@ -1,9 +1,9 @@
 # Created by pyp2rpm-3.2.1
 %global pypi_name Sphinx
 
-Name:           %{pypi_name}
+Name:           python-sphinx
 Version:        1.6b3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python documentation generator
 
 License:        BSD
@@ -22,7 +22,7 @@ for the new Python documentation, and has excellent facilities for Python
 project documentation, but C/C++ is supported as well, and more languages are
 Sphinx uses ...
 
-%package -n     python2-%{pypi_name}
+%package -n     python2-sphinx
 Summary:        Python documentation generator
  
 Requires:       python-six >= 1.5
@@ -39,7 +39,7 @@ Requires:       python2-requests >= 2.0.0
 Requires:       python2-typing
 Requires:       python-setuptools
 Requires:       python-sphinxcontrib-websupport
-%description -n python2-%{pypi_name}
+%description -n python2-sphinx
 Sphinx is a tool that makes it easy to create intelligent and beautiful
 documentation for Python projects (or other documents consisting of multiple
 reStructuredText sources), written by Georg Brandl. It was originally created
@@ -47,9 +47,9 @@ for the new Python documentation, and has excellent facilities for Python
 project documentation, but C/C++ is supported as well, and more languages are
 Sphinx uses ...
 
-%package -n python-%{pypi_name}-doc
+%package -n python-sphinx-doc
 Summary:        Sphinx documentation
-%description -n python-%{pypi_name}-doc
+%description -n python-sphinx-doc
 Documentation for Sphinx
 
 %prep
@@ -76,7 +76,7 @@ cp %{buildroot}/%{_bindir}/sphinx-quickstart %{buildroot}/%{_bindir}/sphinx-quic
 ln -sf %{_bindir}/sphinx-quickstart-2 %{buildroot}/%{_bindir}/sphinx-quickstart-%{python2_version}
 
 
-%files -n python2-%{pypi_name} 
+%files -n python2-sphinx
 %doc README.rst
 %{_bindir}/sphinx-apidoc
 %{_bindir}/sphinx-apidoc-2
@@ -93,10 +93,15 @@ ln -sf %{_bindir}/sphinx-quickstart-2 %{buildroot}/%{_bindir}/sphinx-quickstart-
 %{python2_sitelib}/sphinx
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
-%files -n python-%{pypi_name}-doc
+%files -n python-sphinx-doc
 %doc html 
 
 %changelog
+* Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 1.6b3-2
+- new package built with tito
+  * change package name to python2-sphinx from python2-%{pypi_name}
+  * change Name: to python-sphinx
+
 * Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 1.6b3-1
 - Initial package.
   * g/python2-setuptools/s//python-setuptools/g
