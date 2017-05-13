@@ -50,7 +50,7 @@ is raised ...
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
 %changelog
-* Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> - 0.8.0-1
+* Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 0.8.0-1
 - Initial package.
   * g/python2-setuptools/s//python-setuptools/g
   * removed /usr/bin/jsonschema creation and packaging
