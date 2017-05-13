@@ -17,6 +17,7 @@ BuildRequires:  python-nose
 BuildRequires:  python2-mock >= 0.7.0
 BuildRequires:  python-setuptools
 BuildRequires:  python-sphinx
+BuildRequires:  python-django
 
 %description
 .. _kombuindex: kombu Messaging library for Python :Version: 3.0.19Kombu is a
@@ -53,7 +54,7 @@ rm -rf %{pypi_name}.egg-info
 %build
 %{__python2} setup.py build
 # generate html docs 
-sphinx-build docs html
+PYTHONPATH=$PWD sphinx-build docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
