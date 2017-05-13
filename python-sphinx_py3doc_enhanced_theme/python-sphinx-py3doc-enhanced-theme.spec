@@ -51,7 +51,7 @@ rm -rf %{pypi_name}.egg-info
 %{python2_sitelib}/sphinx_py3doc_enhanced_theme-%{version}-py?.?.egg-info
 
 %changelog
-* Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> - 2.4.0-1
+* Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 2.4.0-1
 - Initial package.
   * built from downloaded tarball, Source0: fixed due to #118
   * g/python2-setuptools/s//python-setuptools/g
