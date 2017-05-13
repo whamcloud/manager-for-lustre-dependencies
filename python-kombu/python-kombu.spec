@@ -77,6 +77,7 @@ rm -rf html/.{doctrees,buildinfo}
 * Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0.19-2
 - Add PYTHONPATH=$PWD to sphinx-build docs html
 - Add BuildRequires: python-django
+
 * Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0.19-1
 - Initial package.
   * g/python2-setuptools/s//python-setuptools/g
