@@ -97,7 +97,7 @@ ln -sf %{_bindir}/sphinx-quickstart-2 %{buildroot}/%{_bindir}/sphinx-quickstart-
 %doc html 
 
 %changelog
-* Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> - 1.6b3-1
+* Sat May 13 2017 Brian J. Murrell <brian.murrell@intel.com> 1.6b3-1
 - Initial package.
   * g/python2-setuptools/s//python-setuptools/g
   * change %files to %{python2_sitearch}/sphinx
