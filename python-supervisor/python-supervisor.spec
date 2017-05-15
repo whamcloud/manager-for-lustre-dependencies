@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        3.0b1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A system for controlling process state under UNIX
 
 License:        BSD-derived (http://www.repoze.org/LICENSE.txt)
@@ -93,6 +93,10 @@ cp supervisor/version.txt %{buildroot}/%{python2_sitelib}/%{pypi_name}/
 %doc html 
 
 %changelog
+* Mon May 15 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-3
+- Need to manually copy over version.txt for some reason
+  (brian.murrell@intel.com)
+
 * Fri May 12 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-2
 - s/python2-setuptools/python-setuptools/g (brian.murrell@intel.com)
 
