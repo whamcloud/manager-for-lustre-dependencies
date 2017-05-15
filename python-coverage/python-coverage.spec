@@ -74,7 +74,7 @@ ln -sf %{_bindir}/coverage-2 %{buildroot}/%{_bindir}/coverage-%{python2_version}
 %{python2_sitearch}/%{pypi_name}-%{version}p2-py?.?.egg-info
 
 %changelog
-* Mon May 15 2017 Brian J. Murrell <brian.murrell@intel.com> - 3.5.3-1
+* Mon May 15 2017 Brian J. Murrell <brian.murrell@intel.com> 3.5.3-1
 - Initial package.
   * g/python-setuptools/s//python-setuptools/g
   * comment out some of the %{_bindir}/ creations/packaging
