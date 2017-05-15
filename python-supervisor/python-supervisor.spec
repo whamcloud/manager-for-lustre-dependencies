@@ -64,6 +64,8 @@ cp %{buildroot}/%{_bindir}/supervisord %{buildroot}/%{_bindir}/supervisord-2
 ln -sf %{_bindir}/supervisord-2 %{buildroot}/%{_bindir}/supervisord-%{python2_version}
 cp %{buildroot}/%{_bindir}/pidproxy %{buildroot}/%{_bindir}/pidproxy-2
 ln -sf %{_bindir}/pidproxy-2 %{buildroot}/%{_bindir}/pidproxy-%{python2_version}
+# for some reason version.txt does not get installed
+cp supervisor/version.txt %{buildroot}/%{python2_sitelib}/%{pypi_name}/
 
 
 %check
