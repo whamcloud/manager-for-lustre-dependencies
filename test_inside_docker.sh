@@ -49,5 +49,5 @@ ls -l
 chown root.root *
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ $PWD --define _sourcedir\ $PWD *.spec
 echo -en "travis_fold:start:mock *.src.rpm\\r"
-mock *.src.rpm
+sudo -u nobody mock *.src.rpm
 echo -en "travis_fold:end:mock *.src.rpm\\r"
