@@ -9,6 +9,7 @@ OS_VERSION=$1
 #ls -l /home
 #ps axf
 #rpm -qa
+cat /etc/passwd
 
 env
 
