@@ -31,7 +31,7 @@ usermod -a -G mock mocker
 
 rc=0
 for SUBDIR in $changed_dirs; do
-    if ! su - mocker; then <<EOF
+    if ! su - mocker <<EOF; then
 set -xe
 cd /manager-for-lustre-dependencies/$SUBDIR
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ \$PWD --define _sourcedir\ \$PWD *.spec
