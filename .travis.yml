@@ -16,4 +16,4 @@ before_install:
   
 script:
  # Run tests in Container
-- setup_tests.sh ${OS_VERSION}
+- ./setup_tests.sh ${OS_VERSION}
