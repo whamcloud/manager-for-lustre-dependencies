@@ -13,6 +13,7 @@ OS_VERSION=$1
 env
 
 yum -y install git mock
+yum -y install git mock rpmbuild
 
 cd /manager-for-lustre-dependencies
 cat env
