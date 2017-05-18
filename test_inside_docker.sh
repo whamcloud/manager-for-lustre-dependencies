@@ -15,6 +15,9 @@ env
 yum -y install git mock
 
 cd /manager-for-lustre-dependencies
-git log | head -100
+cat env
+eval $(grep ^TRAVIS_COMMIT_RANGE= env)
+eval $(grep ^changed_files= env)
+#git log | head -100
 
 git diff --name-only $TRAVIS_COMMIT_RANGE

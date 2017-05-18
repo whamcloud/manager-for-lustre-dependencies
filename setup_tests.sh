@@ -6,8 +6,8 @@
 el_version=$1
 
 #git log | head -100
-env
-git diff --name-only $TRAVIS_COMMIT_RANGE
+export changed_files=$(git diff --name-only $TRAVIS_COMMIT_RANGE)
+env > env
 
  # Run tests in Container
 if [ "$el_version" = "6" ]; then
