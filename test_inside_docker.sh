@@ -12,7 +12,7 @@ OS_VERSION=$1
 
 env
 
-yum -y install git mock rpm-build
+yum -y install git mock rpm-build ed
 
 # add our repos to the mock configuration
 ed <<"EOF" /etc/mock/default.cfg
