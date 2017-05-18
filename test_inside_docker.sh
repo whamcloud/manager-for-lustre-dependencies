@@ -24,14 +24,13 @@ w
 q
 EOF
 
-eval $(grep -e "^TRAVIS_COMMIT_RANGE=" -e "^changed_files=" /manager-for-lustre-dependencies/env)
+eval $(grep -e "^changed_files=" /manager-for-lustre-dependencies/env)
 
 useradd mocker
 usermod -a -G mock mocker
 
-# pretend python-nose is a changed dir and try to build it
-SUBDIR=python-nose
-su - mocker <<EOF
+for SUBDIR in $(echo $changed_files | sed -ne '/.*\.spec/s/\/.*\.spec//p'; do
+    su - mocker <<EOF
 set -xe
 cd /manager-for-lustre-dependencies/$SUBDIR
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ \$PWD --define _sourcedir\ \$PWD *.spec
