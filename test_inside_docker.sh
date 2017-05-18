@@ -21,3 +21,8 @@ eval $(grep ^changed_files= env)
 #git log | head -100
 
 git diff --name-only $TRAVIS_COMMIT_RANGE
+
+# pretend python-nose is a changed dir and try to build it
+cd python-nose
+rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ $PWD --define _sourcedir\ $PWD *.spec
+mock *.src.rpm
