@@ -50,13 +50,10 @@ echo "travis_fold:end:groups"
 SUBDIR=python-nose
 su - mocker <<EOF
 set -x
-pwd
 cd /manager-for-lustre-dependencies/$SUBDIR
-env
-id
-rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ $PWD --define _sourcedir\ $PWD *.spec
+rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ \$PWD --define _sourcedir\ \$PWD *.spec
 echo "travis_fold:start:mock"
-mock *.src.rpm
+mock \$PWD/*.src.rpm
 echo "travis_fold:end:mock"
 EOF
 
