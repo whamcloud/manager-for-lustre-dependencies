@@ -36,8 +36,8 @@ w
 q
 EOF
 
-eval $(grep ^TRAVIS_COMMIT_RANGE= env)
-eval $(grep ^changed_files= env)
+eval $(grep ^TRAVIS_COMMIT_RANGE= /manager-for-lustre-dependencies/env)
+eval $(grep ^changed_files= /manager-for-lustre-dependencies/env)
 
 git diff --name-only $TRAVIS_COMMIT_RANGE
 
