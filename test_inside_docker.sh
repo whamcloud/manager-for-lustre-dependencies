@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -x #e
 
 OS_VERSION=$1
 
@@ -6,12 +6,16 @@ pwd
 
 id
 
-git log | head 100
+yum -y install git
+
+git log | head -100
 
 mount
 
 df -h
 
 ls -l /home
+
+ps axf
 
 rpm -qa
