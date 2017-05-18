@@ -5,7 +5,9 @@
 # Version of CentOS/RHEL
 el_version=$1
 
-git log | head -100
+#git log | head -100
+env
+git diff --name-only $TRAVIS_COMMIT_RANGE
 
  # Run tests in Container
 if [ "$el_version" = "6" ]; then
