@@ -13,10 +13,10 @@ cat /etc/passwd
 
 env
 
-echo -en 'travis_fold:start:yum\\r'
-echo "+ yum -y install git mock rpm-build ed"
+#echo -en 'travis_fold:start:yum\\r'
+echo 'travis_fold:start:yum'
 yum -y install git mock rpm-build ed sudo
-echo -en 'travis_fold:end:yum\\r'
+echo 'travis_fold:end:yum'
 
 # add our repos to the mock configuration
 ed <<"EOF" /etc/mock/default.cfg
@@ -47,9 +47,11 @@ git diff --name-only $TRAVIS_COMMIT_RANGE
 # pretend python-nose is a changed dir and try to build it
 cd python-nose
 ls -l
-chown root.root *
+usermod -a -G mock nobody
+chown nobody.nobody *
+sudo -u nobody bash <<EOF
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ $PWD --define _sourcedir\ $PWD *.spec
-echo -en "travis_fold:start:mock\\r"
-echo "+ sudo -u nobody mock *.src.rpm"
-sudo -u nobody mock *.src.rpm
-echo -en "travis_fold:end:mock\\r"
+echo "travis_fold:start:mock"
+mock *.src.rpm
+echo "travis_fold:end:mock"
+EOF
