@@ -24,13 +24,13 @@ w
 q
 EOF
 
-eval $(grep -e "^changed_files=" /manager-for-lustre-dependencies/env)
+eval $(grep -e "^changed_dirs=" /manager-for-lustre-dependencies/env)
 
 useradd mocker
 usermod -a -G mock mocker
 
 rc=0
-for SUBDIR in $(echo $changed_files | sed -ne '/.*\.spec/s/\/.*\.spec//p'); do
+for SUBDIR in $changed_dirs; do
     if ! su - mocker; then <<EOF
 set -xe
 cd /manager-for-lustre-dependencies/$SUBDIR

@@ -6,7 +6,7 @@
 el_version=$1
 
 #git log | head -100
-export changed_files="$(git diff --name-only $TRAVIS_COMMIT_RANGE)"
+export changed_dirs="$(git diff --name-only $TRAVIS_COMMIT_RANGE | sed -ne '/.*\/.*/s/\/.*//p' | uniq)"
 env > env
 
  # Run tests in Container
