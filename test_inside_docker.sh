@@ -13,9 +13,10 @@ cat /etc/passwd
 
 env
 
-echo -en 'travis_fold:start:yum -y install git mock rpm-build ed\\r'
-yum -y install git mock rpm-build ed
-echo -en 'travis_fold:end:yum -y install git mock rpm-build ed\\r'
+echo -en 'travis_fold:start:yum\\r'
+echo "+ yum -y install git mock rpm-build ed"
+yum -y install git mock rpm-build ed sudo
+echo -en 'travis_fold:end:yum\\r'
 
 # add our repos to the mock configuration
 ed <<"EOF" /etc/mock/default.cfg
@@ -48,6 +49,7 @@ cd python-nose
 ls -l
 chown root.root *
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ $PWD --define _sourcedir\ $PWD *.spec
-echo -en "travis_fold:start:mock *.src.rpm\\r"
+echo -en "travis_fold:start:mock\\r"
+echo "+ sudo -u nobody mock *.src.rpm"
 sudo -u nobody mock *.src.rpm
-echo -en "travis_fold:end:mock *.src.rpm\\r"
+echo -en "travis_fold:end:mock\\r"
