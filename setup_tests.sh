@@ -5,7 +5,7 @@
 # Version of CentOS/RHEL
 el_version=$1
 
-git log | head 100
+git log | head -100
 
  # Run tests in Container
 if [ "$el_version" = "6" ]; then
