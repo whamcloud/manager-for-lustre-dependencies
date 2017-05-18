@@ -45,15 +45,19 @@ eval $(grep ^changed_files= env)
 git diff --name-only $TRAVIS_COMMIT_RANGE
 
 # pretend python-nose is a changed dir and try to build it
+useradd mocker
 cd python-nose
 ls -l
-useradd mocker
 usermod -a -G mock mocker
 chown mocker *
+echo "travis_fold:start:/etc/group"
 cat /etc/group
-ls -l /
-sudo -u mocker bash <<EOF
+echo "travis_fold:end:/etc/group"
+sudo -u mocker -i bash <<EOF
 set -x
+pwd
+cd $PWD
+env
 id
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ $PWD --define _sourcedir\ $PWD *.spec
 echo "travis_fold:start:mock"
@@ -61,4 +65,4 @@ mock *.src.rpm
 echo "travis_fold:end:mock"
 EOF
 
-tail -200 /var/log/secure
+tail -200 /var/log/secure || ls -ltar /var/log
