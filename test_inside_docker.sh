@@ -47,11 +47,18 @@ git diff --name-only $TRAVIS_COMMIT_RANGE
 # pretend python-nose is a changed dir and try to build it
 cd python-nose
 ls -l
-usermod -a -G mock nobody
-chown nobody.nobody *
-sudo -u nobody bash <<EOF
+useradd mocker
+usermod -a -G mock mocker
+chown mocker *
+cat /etc/group
+ls -l /
+sudo -u mocker bash <<EOF
+set -x
+id
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ $PWD --define _sourcedir\ $PWD *.spec
 echo "travis_fold:start:mock"
 mock *.src.rpm
 echo "travis_fold:end:mock"
 EOF
+
+tail -200 /var/log/secure
