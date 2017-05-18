@@ -29,8 +29,9 @@ eval $(grep -e "^changed_files=" /manager-for-lustre-dependencies/env)
 useradd mocker
 usermod -a -G mock mocker
 
-for SUBDIR in $(echo $changed_files | sed -ne '/.*\.spec/s/\/.*\.spec//p'; do
-    su - mocker <<EOF
+rc=0
+for SUBDIR in $(echo $changed_files | sed -ne '/.*\.spec/s/\/.*\.spec//p'); do
+    if ! su - mocker; then <<EOF
 set -xe
 cd /manager-for-lustre-dependencies/$SUBDIR
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ \$PWD --define _sourcedir\ \$PWD *.spec
@@ -38,3 +39,8 @@ echo "travis_fold:start:mock"
 mock \$PWD/*.src.rpm
 echo "travis_fold:end:mock"
 EOF
+        let rc+=1
+    fi
+done
+
+exit $rc
