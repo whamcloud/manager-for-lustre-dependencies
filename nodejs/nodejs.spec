@@ -16,17 +16,17 @@
 %global nodejs_epoch 1
 %global nodejs_major 6
 %global nodejs_minor 10
-%global nodejs_patch 1
+%global nodejs_patch 2
 %global nodejs_abi %{nodejs_major}.%{nodejs_minor}
 %global nodejs_version %{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}
-%global nodejs_release 2.04
+%global nodejs_release 1.01
 
 # == Bundled Dependency Versions ==
 # v8 - from deps/v8/include/v8-version.h
 %global v8_major 5
 %global v8_minor 1
 %global v8_build 281
-%global v8_patch 95
+%global v8_patch 98
 # V8 presently breaks ABI at least every x.y release while never bumping SONAME
 %global v8_abi %{v8_major}.%{v8_minor}
 %global v8_version %{v8_major}.%{v8_minor}.%{v8_build}.%{v8_patch}
@@ -120,7 +120,7 @@ BuildRequires: gcc >= 4.8.0
 BuildRequires: gcc-c++ >= 4.8.0
 BuildRequires: systemtap-sdt-devel
 
-%if 0%{?rhel} == 7
+%if 0%{?epel}
 BuildRequires: openssl-devel >= 1:1.0.1
 %else
 %if 0%{?fedora} > 25
@@ -147,7 +147,7 @@ Provides: nodejs(engine) = %{nodejs_version}
 # The ham-radio group has agreed to rename their binary for us, but
 # in the meantime, we're setting an explicit Conflicts: here
 Conflicts: node <= 0.3.2-12
-Obsoletes: nodejs < 1:6.10.1-2
+Obsoletes: nodejs < 1:6.10.2-1
 
 # The punycode module was absorbed into the standard library in v0.6.
 # It still exists as a seperate package for the benefit of users of older
@@ -418,27 +418,17 @@ NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules %{buildroot}/%{_bindir}/node -
 %{_pkgdocdir}/npm/doc
 
 %changelog
-* Wed May 10 2017 Brian J. Murrell <brian.murrell@intel.com> 6.10.1-2.04
-- new package built with tito
-
-* Mon May 08 2017 Brian J. Murrell <brian.murrell@intel.com> 6.10.1-2.04
-- Revert "Handle redefinition of release properly" (brian.murrell@intel.com) 6.10.1-2.04
-
-* Mon May 08 2017 Brian J. Murrell <brian.murrell@intel.com> 6.10.1-2.03
-- Bump release to make version superior to previously built packages
-  with .git.* in their %{release}
-
-* Sun May 07 2017 Brian J. Murrell <brian.murrell@intel.com> 6.10.1-2.02
-- Handle redefinition of release properly (brian.murrell@intel.com)
-
-* Thu May 04 2017 Brian J. Murrell <brian.murrell@intel.com> 6.10.1-2.01
+* Thu May 18 2017 Brian J. Murrell <brian.murrell@intel.com> 6.10.2-1.01
 - Rebuild from EPEL as a bridge from the nodesource release to EPEL
   - add a patch to fix building with long paths
   - don't Requires: npm
-.
+
+* Wed Apr 12 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.10.2-1
+- Update to 6.10.2
+
 * Mon Apr 03 2017 Stephen Gallagher <sgallagh@redhat.com> - 1:6.10.1-3
 - Move NPM manpages into the correct subpackage
-- Fixes: rhbx#1433403
+- Fixes: rhbz#1433403
 
 * Mon Apr 03 2017 Stephen Gallagher <sgallagh@redhat.com> - 1:6.10.1-2
 - Revert upstream change that is incompatible with OpenSSL 1.0.1
@@ -529,34 +519,140 @@ NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules %{buildroot}/%{_bindir}/node -
 - https://github.com/nodejs/node/blob/v6.6.0/doc/changelogs/CHANGELOG_V6.md#6.6.0
 
 * Mon Sep 12 2016 Stephen Gallagher <sgallagh@redhat.com> - 1:6.5.0-104
-- Update to 6.5.0
 - Add support for building on EPEL 7 against OpenSSL 1.0.1
 - Modify v8_abi autorequires to avoid unnecessary rebuilds
 
-* Fri Jun 24 2016 Zuzana Svetlikova <zsvetlik@redhat.com> - 0.10.46-1
-- Update to 0.10.46(security fix)
-- https://github.com/nodejs/node/blob/v0.10.46/ChangeLog
-- Bump http-parser version
+* Mon Aug 29 2016 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.5.0-103
+- Update to 6.5.0
 
-* Wed Feb 10 2016 Stephen Gallagher <sgallagh@redhat.com> - 0.10.43-4
+* Mon Aug 22 2016 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.4.0-102
+- Bump release to 102 to fix broken npm dependency
+
+* Thu Aug 18 2016 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.4.0-1
+- Update to 6.4.0
+
+* Tue Aug 16 2016 Stephen Gallagher <sgallagh@redhat.com> - 1:6.3.1-101
+- Build Node.js with internationalization support
+
+* Thu Aug 04 2016 Stephen Gallagher <sgallagh@redhat.com> - 1:6.3.1-100
+- Split npm into a subpackage
+
+* Mon Jul 25 2016 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.3.1-1
+- Update to 6.3.1
+- comment out %%patch3
+
+* Mon Jul 18 2016 Stephen Gallagher <sgallagh@redhat.com> - 1:6.3.0-3
+- Fix epoch version dependency on libuv
+
+* Tue Jul 12 2016 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.3.0-2
+- Patch node.gyp to fix failing ./configure
+
+* Sun Jul 10 2016 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.3.0-1
+- Update node to 6.3.0
+- update punycode to 2.0.0
+- add gcc and gcc-c++ as build dependencies
+- modified system-certs patch
+
+* Sat Jun 18 2016 Tom Hughes <tom@compton.nu> - 1:6.2.2-1
+- Update to latest stable release 6.2.2
+- Add check on npm version
+
+* Tue Jun  7 2016 Tom Hughes <tom@compton.nu> - 1:6.2.1-1
+- Update to latest stable release 6.2.1
+
+* Wed May 18 2016 Stephen Gallagher <sgallagh@redhat.com> - 1:6.2.0-1
+- Update to latest stable release 6.2.0
+- https://github.com/nodejs/node/blob/v6.2.0/doc/changelogs/CHANGELOG_V6.md#6.2.0
+
+* Mon May 09 2016 Stephen Gallagher <sgallagh@redhat.com> - 1:6.1.0-1
+- Update to latest stable release 6.1.0
+- https://github.com/nodejs/node/blob/v6.1.0/CHANGELOG.md
+
+* Tue May 03 2016 Stephen Gallagher <sgallagh@redhat.com> - 1:5.11.0-3
+- Drop the epoch on the virtual provides for npm
+
+* Thu Apr 28 2016 Stephen Gallagher <sgallagh@redhat.com> - 1:5.11.0-2
+- Add epoch and rebuild to preserve upgrade path
+
+* Mon Apr 25 2016 Stephen Gallagher <sgallagh@redhat.com> - 5.11.0-1
+- Update to latest stable release 5.11.0
+- https://github.com/nodejs/node/blob/v5.11.0/CHANGELOG.md
+
+* Mon Apr 11 2016 Stephen Gallagher <sgallagh@redhat.com> - 5.10.0-1
+- Update to latest stable release 5.10.1
+- https://github.com/nodejs/node/blob/v5.10.1/CHANGELOG.md
+
+* Fri Apr 01 2016 Stephen Gallagher <sgallagh@redhat.com> - 5.10.0-1
+- Update to latest security release (5.10.0)
+- Update bundled npm to 3.8.3
+- Fixes serious man-in-the-middle vulnerability with npm
+
+* Wed Mar 23 2016 Stephen Gallagher <sgallagh@redhat.com> - 5.9.1-1
+- Update to latest stable release (5.9.1)
+- Bundle npm (3.7.3)
+
+* Wed Mar 23 2016 Stephen Gallagher <sgallagh@redhat.com> - 4.4.1-1
+- Update to 4.4.1 upstream LTS release
+- Add more versatile ABI checking
+
+* Tue Feb 23 2016 Tom Hughes <tom@compton.nu> - 4.3.1-1
+- Update to 4.3.1 upstream LTS release
+
+* Wed Feb 10 2016 Tom Hughes <tom@compton.nu> - 4.3.0-3
 - Verify that the built node reports the expected versions
-- Properly Provides: http-parser
+- Drop unneeded dep on http-parser-devel
+- Add version check for punycode
+
+* Wed Feb 10 2016 Stephen Gallagher <sgallagh@redhat.com> - 4.3.0-2
+- Fix nodejs-abi to be 4.3
+- Clean up bundled versions in spec file
+
+* Tue Feb 09 2016 Stephen Gallagher <sgallagh@redhat.com> - 4.3.0-1
+- Update to 4.3.0 upstream LTS release
+- https://github.com/nodejs/node/blob/v4.3.0/CHANGELOG.md
+- Switch to the bundled http-parser
+- Build with -fno-delete-pointer-null-checks for GCC 6
+
+* Tue Feb  9 2016 Tom Hughes <tom@compton.nu> - 4.2.6-1
+- Update to 4.2.6 upstream release
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Tue Jan 19 2016 Stephen Gallagher <sgallagh@redhat.com> - 4.2.4-4
+- Force a depdendency on the correct version of http-parser
+
+* Tue Jan 19 2016 Stephen Gallagher <sgallagh@redhat.com> - 4.2.4-3
+- Force a dependency on the correct version of libuv
+
+* Mon Jan 18 2016 Stephen Gallagher <sgallagh@redhat.com> - 4.2.4-2
 - Fix Provides: for punycode
 
-* Wed Feb 10 2016 Stephen Gallagher <sgallagh@redhat.com> - 0.10.42-3
-- Remove duplicated content from spec file
+* Wed Jan 13 2016 Stephen Gallagher <sgallagh@redhat.com> - 4.2.4-1
+- New upstream bugfix release 4.2.4
+- https://github.com/nodejs/node/blob/v4.2.3/CHANGELOG.md
 
-* Wed Feb 10 2016 Stephen Gallagher <sgallagh@redhat.com> - 0.10.42-2
-- Re-enable debug builds on supported arches
+* Fri Dec 04 2015 Stephen Gallagher <sgallagh@redhat.com> 4.2.3-2
+- Add %%with_debug variable to spec file
+  The debug build is not supported on all architectures.
 
-* Wed Feb 10 2016 Stephen Gallagher <sgallagh@redhat.com> - 0.10.42-1
-- Update to Node.js 0.10.42
-- https://github.com/nodejs/node/blob/v0.10.42/ChangeLog
-- Bundle v8, c-ares and http-parser with Node.js
-- Drop patches that revert v8 UTF8 change
-- Resolves: RHBZ#1306203
-- Resolves: RHBZ#1306200
-- Resolves: RHBZ#1306207
+* Fri Dec 04 2015 Stephen Gallagher <sgallagh@redhat.com> 4.2.3-1
+- New upstream security release 4.2.3
+- https://github.com/nodejs/node/blob/v4.2.3/CHANGELOG.md
+- Fix incorrect v8 version
+
+* Wed Dec  2 2015 Peter Robinson <pbrobinson@fedoraproject.org> 4.2.2-4
+- Use nodejs_arches macro for arch definition (add aarch64 and power64 platforms)
+
+* Wed Dec 02 2015 Stephen Gallagher <sgallagh@redhat.com> 4.2.2-3
+- Fix nodejs_abi version
+- Also ensure that we are building against the correct libuv
+
+* Wed Dec 02 2015 Stephen Gallagher <sgallagh@redhat.com> 4.2.2-2
+- Disable debug build for ARMv7 since it fails to build
+
+* Tue Dec 01 2015 Stephen Gallagher <sgallagh@redhat.com> 4.2.2-1
+- Upgrade to Node.js 4.2.2 (LTS)
 
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.36-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
