@@ -1,9 +1,18 @@
-From fbb5821dc3d967e916a187ee009e955530d2ce8d Mon Sep 17 00:00:00 2001
+From a75f63218b84ee508c770391519a13bd400a5003 Mon Sep 17 00:00:00 2001
 From: Ben Noordhuis <info@bnoordhuis.nl>
-Date: Tue, 28 Feb 2017 13:56:40 -0500
-Subject: [PATCH 4/4] Fix compatibility with GCC 7
+Date: Thu, 13 Apr 2017 13:48:01 +0200
+Subject: [PATCH 4/4] v8: fix build errors with g++ 7
 
-Signed-off-by: Stephen Gallagher <sgallagh@redhat.com>
+This is a local patch because upstream fixed it differently by moving
+large chunks of code out of objects.h.  We cannot easily back-port
+those changes due to their size and invasiveness.
+
+Fixes: https://github.com/nodejs/node/issues/10388
+PR-URL: https://github.com/nodejs/node/pull/12392
+Reviewed-By: Anna Henningsen <anna@addaleax.net>
+Reviewed-By: Benjamin Gruenbaum <benjamingr@gmail.com>
+Reviewed-By: Daniel Bevenius <daniel.bevenius@gmail.com>
+Reviewed-By: James M Snell <jasnell@gmail.com>
 ---
  deps/v8/src/objects-body-descriptors.h |  2 +-
  deps/v8/src/objects-inl.h              | 21 +++++++++++++++++++++
@@ -99,5 +108,5 @@ index d1632c9deb298218faea31886ffdb0a8e0201cdc..47b02dadcff9658c9fcfe629e1376670
        Isolate* isolate, int at_least_space_for,
        MinimumCapacity capacity_option = USE_DEFAULT_MINIMUM_CAPACITY,
 -- 
-2.12.0
+2.12.2
 
