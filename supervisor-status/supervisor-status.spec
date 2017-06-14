@@ -29,19 +29,19 @@ It is meant to be used with unix domain sockets + socket activation.
 %install
 rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT/etc/systemd/system/
-cp systemd-units/supervisor-status.socket $RPM_BUILD_ROOT/etc/systemd/system/supervisor-status.socket
-cp systemd-units/supervisor-status.service $RPM_BUILD_ROOT/etc/systemd/system/supervisor-status.service
-mkdir -p $RPM_BUILD_ROOT/sbin/
-cp dist/supervisor-status $RPM_BUILD_ROOT/sbin/supervisor-status
+mkdir -p $RPM_BUILD_ROOT/usr/lib/systemd/system/
+cp systemd-units/supervisor-status.socket $RPM_BUILD_ROOT/usr/lib/systemd/system/supervisor-status.socket
+cp systemd-units/supervisor-status.service $RPM_BUILD_ROOT/usr/lib/systemd/system/supervisor-status.service
+mkdir -p $RPM_BUILD_ROOT/usr/sbin/
+cp dist/supervisor-status $RPM_BUILD_ROOT/usr/sbin/supervisor-status
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%attr(0744,root,root)/sbin/supervisor-status
-%attr(0744,root,root)/etc/systemd/system/supervisor-status.service
-%attr(0744,root,root)/etc/systemd/system/supervisor-status.socket
+%attr(0744,root,root)/usr/sbin/supervisor-status
+%attr(0744,root,root)/usr/lib/systemd/system/supervisor-status.service
+%attr(0744,root,root)/usr/lib/systemd/system/supervisor-status.socket
 
 %post
 systemctl enable supervisor-status.socket
