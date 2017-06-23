@@ -3,17 +3,17 @@
 
 
 Name:           django-tastypie
-Version:        0.9.11
-Release:        5%{?dist}
+Version:        0.9.12
+Release:        0.01%{?dist}
 Summary:        Tastypie is an webservice API framework for Django
 
 Group:          Development/Languages
 License:        BSD
 URL:            http://django-tastypie.readthedocs.org/en/latest/index.html
-Source0:        http://pypi.python.org/packages/source/d/django-tastypie/%{name}-%{version}.tar.gz
+Source0:        http://pypi.python.org/packages/source/d/%{name}/%{name}-%{version}.tar.gz
 # to get tests:
 # git clone https://github.com/toastdriven/django-tastypie.git && cd django-tastypie
-# git checkout v0.9.11
+# git checkout v0.9.12
 # tar -czf django-tastypie-tests.tgz tests/
 Source1:        %{name}-tests.tgz
 

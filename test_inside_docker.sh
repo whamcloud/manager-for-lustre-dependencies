@@ -34,6 +34,7 @@ for SUBDIR in $changed_dirs; do
     if ! su - mocker <<EOF; then
 set -xe
 cd /manager-for-lustre-dependencies/$SUBDIR
+ps -u 2000
 rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ \$PWD --define _sourcedir\ \$PWD *.spec
 echo "travis_fold:start:mock"
 mock \$PWD/*.src.rpm
