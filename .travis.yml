@@ -1,5 +1,4 @@
 sudo: required
-group: deprecated-2017Q2
 env:
   matrix:
   - OS_TYPE=centos OS_VERSION=7

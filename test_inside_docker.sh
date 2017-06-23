@@ -26,6 +26,9 @@ EOF
 
 eval $(grep -e "^changed_dirs=" /manager-for-lustre-dependencies/env)
 
+useradd --uid $(stat -g '%u' /manager-for-lustre-dependencies)
+useradd --gid $(stat -g '%g' /manager-for-lustre-dependencies)
+id
 useradd mocker
 usermod -a -G mock mocker
 
