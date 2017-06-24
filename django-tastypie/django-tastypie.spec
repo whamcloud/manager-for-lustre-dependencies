@@ -83,6 +83,9 @@ cp -p LICENSE README.rst AUTHORS -t %{buildroot}%{docdir}
 %exclude %{docdir}/html/.buildinfo
 
 %changelog
+* Fri Jun 23 2017 Joe Grund <joe.grund@intel.com> 0.9.12-0.01
+- Bump version to 0.9.12 (joe.grund@intel.com)
+
 * Thu May 11 2017 Brian J. Murrell <brian.murrell@intel.com> 0.9.11-5
 - Add missed file due to .gitignore (brian.murrell@intel.com)
 
