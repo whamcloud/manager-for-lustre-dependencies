@@ -1,9 +1,9 @@
 # Created by pyp2rpm-3.2.1
 %global pypi_name supervisor
 
-Name:           %{pypi_name}
+Name:           python-%{pypi_name}
 Version:        3.0b1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A system for controlling process state under UNIX
 
 License:        BSD-derived (http://www.repoze.org/LICENSE.txt)
@@ -94,6 +94,9 @@ cp supervisor/version.txt %{buildroot}/%{python2_sitelib}/%{pypi_name}/
 %doc html 
 
 %changelog
+* Mon Jun 26 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-5
+- Rename base package to have python- prefix on it as needed by tito
+
 * Mon Jun 26 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-4
 - Add python_provide macro to generate proper Provides/Obsoletes tags
 
