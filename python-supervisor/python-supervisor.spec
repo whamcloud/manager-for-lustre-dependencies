@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        3.0b1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A system for controlling process state under UNIX
 
 License:        BSD-derived (http://www.repoze.org/LICENSE.txt)
@@ -26,6 +26,7 @@ of ...
 
 %package -n     python2-%{pypi_name}
 Summary:        A system for controlling process state under UNIX
+%{?python_provide:%python_provide python2-%{pypi_name}}
  
 Requires:       python-setuptools
 Requires:       python-meld3 >= 0.6.5
@@ -93,6 +94,9 @@ cp supervisor/version.txt %{buildroot}/%{python2_sitelib}/%{pypi_name}/
 %doc html 
 
 %changelog
+* Mon Jun 26 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-4
+- Add python_provide macro to generate proper Provides/Obsoletes tags
+
 * Mon May 15 2017 Brian J. Murrell <brian.murrell@intel.com> 3.0b1-3
 - Need to manually copy over version.txt for some reason
   (brian.murrell@intel.com)
