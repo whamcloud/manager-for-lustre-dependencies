@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Lightweight in-process concurrent programming
 
 License:        MIT License
@@ -27,6 +27,7 @@ other words. This is ...
 
 %package -n     python2-%{pypi_name}
 Summary:        Lightweight in-process concurrent programming
+%{?python_provide:%python_provide python2-%{pypi_name}}
 
 %description -n python2-%{pypi_name}
 The greenlet package is a spinoff of Stackless, a version of CPython that
@@ -87,6 +88,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html 
 
 %changelog
+* Tue Jun 27 2017 Brian J. Murrell <brian.murrell@intel.com> 0.4.2-4
+- add python_provide macro to python2 subpackage 
+
 * Thu May 11 2017 Brian J. Murrell <brian.murrell@intel.com> 0.4.2-3
 - Add missed file due to .gitignore (brian.murrell@intel.com)
 
