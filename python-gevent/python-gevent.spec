@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Coroutine-based network library
 
 License:        TODO
@@ -25,6 +25,7 @@ for ...
 
 %package -n     python2-%{pypi_name}
 Summary:        Coroutine-based network library
+%{?python_provide:%python_provide python2-%{pypi_name}}
  
 Requires:       python2-greenlet
 %description -n python2-%{pypi_name}
@@ -63,6 +64,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html 
 
 %changelog
+* Tue Jun 27 2017 Brian J. Murrell <brian.murrell@intel.com> 1.0.1-3
+- add python_provide macro to python2 subpackage 
+
 * Wed May 10 2017 Brian J. Murrell <brian.murrell@intel.com> 1.0.1-2
 - new package built with tito
 
