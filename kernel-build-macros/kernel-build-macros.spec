@@ -1,6 +1,6 @@
 Name:		kernel-build-macros
 Version:	1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	RPM macros to build a kernel SRPM
 
 License:	MIT
@@ -18,15 +18,17 @@ URL:		https://copr.fedorainfracloud.org/coprs/managerforlustre/
 %install
 mkdir -p %{buildroot}/%{_rpmconfigdir}/macros.d/
 cat <<EOF  > %{buildroot}/%{_rpmconfigdir}/macros.d/macros.kernel-build
-%_with_kabichk 0
-%_without_kabichk 1
-%_buildid _lustre
+%%_without_kabichk 1
+%%buildid _lustre
 EOF
 
 %files
 %{_rpmconfigdir}/macros.d/macros.kernel-build
 
 %changelog
+* Sat Jul 01 2017 Brian J. Murrell <brian.murrell@intel.com> 1-4
+- remove unneeded %%_with_kabichk 0
+
 * Fri Jun 30 2017 Brian J. Murrell <brian.murrell@intel.com> 1-3
 - add buildid macro set to _lustre
 
