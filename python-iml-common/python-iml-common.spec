@@ -12,7 +12,6 @@ Source0:        https://github.com/intel-hpdd/iml-common/archive/v1.0.3.tar.gz
 BuildArch:      noarch
  
 BuildRequires:  python2-devel
-BuildRequires:  python-setuptools-scm
 BuildRequires:  python-setuptools
 
 %description
