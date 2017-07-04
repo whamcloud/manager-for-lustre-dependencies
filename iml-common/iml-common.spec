@@ -1,12 +1,9 @@
-%{!?name: %define name iml-common}
-%{!?name: %define version 1.0.3}
-%{?!package_release: %define package_release 1}
 %{?!python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; import sys; sys.stdout.write(get_python_lib())")}
 
 Summary: IML Common
-Name: %{name}
-Version: %{version}
-Release: %{package_release}%{?dist}
+Name: iml-common
+Version: 1.0.3
+Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: MIT
 Group: Development/Libraries
