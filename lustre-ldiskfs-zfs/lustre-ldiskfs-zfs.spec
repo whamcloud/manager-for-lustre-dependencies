@@ -1,6 +1,6 @@
 Name:		lustre-ldiskfs-zfs
 Version:	1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Meta package to install a Lustre storage server with both ldiskfs and ZFS support
 
 License:	MIT
@@ -25,11 +25,18 @@ server capable of creating both ldiskfs and ZFS targets.
 
 %post
 # work around LU-9745
-/etc/kernel/postinst.d/dkms 3.10.0-514.21.1.el7_lustre.x86_64
-if [ ! -f /lib/modules/3.10.0-514.21.1.el7_lustre.x86_64/extra/lnet.ko ]; then
-    dkms uninstall -m lustre/2.10.0_RC1 -k 3.10.0-514.21.1.el7_lustre.x86_64
+lustre_version="$(dkms status -m lustre | sed -e 's/^.*, \(.*\):.*$/\1/')"
+lustre_kernel_version="$(rpm -qa | sed -ne 's/kernel-\([0-9].*._lustre.*\)$/\1/p')"
+/etc/kernel/postinst.d/dkms $lustre_kernel_version
+if [ ! -f /lib/modules/$lustre_kernel_version/extra/lnet.ko ]; then
+    dkms uninstall -m lustre/$lustre_version -k $lustre_kernel_version
 fi
+dkms install -m lustre/$lustre_version -k $lustre_kernel_version
 
 %changelog
+* Tue Jul 11 2017 Brian J. Murrell <brian.murrell@intel.com> 1-2
+- Add %post to work around LU-9745 by removing the autoinstalled
+  lustre module and re-installing it
+
 * Fri Jul  7 2017 Brian J. Murrell <brian.murrell@intel.com> 1-1
 - Initial package
