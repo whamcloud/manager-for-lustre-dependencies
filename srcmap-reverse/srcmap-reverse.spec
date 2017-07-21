@@ -55,5 +55,5 @@ systemctl stop srcmap-reverse.socket
 systemctl disable srcmap-reverse.socket
 
 %changelog
-* Fri July 21 2017 William Johnson <william.c.johnson@intel.com> - 3.0.2
+* Fri Jul 21 2017 William Johnson <william.c.johnson@intel.com> - 3.0.2
 - initial package
