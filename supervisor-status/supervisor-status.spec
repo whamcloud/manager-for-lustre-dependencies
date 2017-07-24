@@ -39,7 +39,7 @@ cp dist/supervisor-status $RPM_BUILD_ROOT/usr/sbin/supervisor-status
 rm -rf %{buildroot}
 
 %files
-%attr(0644,root,root)/usr/sbin/supervisor-status
+%attr(0744,root,root)/usr/sbin/supervisor-status
 %attr(0644,root,root)/usr/lib/systemd/system/supervisor-status.service
 %attr(0644,root,root)/usr/lib/systemd/system/supervisor-status.socket
 
