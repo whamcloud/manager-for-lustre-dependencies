@@ -27,6 +27,9 @@ cp -R dist/ $RPM_BUILD_ROOT/usr/lib/iml-manager/iml-gui
 %clean
 rm -rf %{buildroot}
 
+%files
+%dir /usr/lib/iml-manager/iml-gui
+
 %changelog
 * Wed Jun 14 2017 Joe Grund <joe.grund@intel.com> - 1.0.0-1
 - initial package
