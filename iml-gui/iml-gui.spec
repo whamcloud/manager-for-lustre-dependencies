@@ -22,7 +22,7 @@ This module is a bundled version of the realtime user interface for Intel Manage
 rm -rf %{buildroot}
 
 mkdir -p $RPM_BUILD_ROOT/usr/lib/iml-manager/iml-gui
-cp -R dist/ $RPM_BUILD_ROOT/usr/lib/iml-manager/iml-gui
+cp -a dist/. $RPM_BUILD_ROOT/usr/lib/iml-manager/iml-gui/
 
 %clean
 rm -rf %{buildroot}
