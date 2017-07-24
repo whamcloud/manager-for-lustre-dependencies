@@ -61,5 +61,5 @@ fi
 * Wed Jun 14 2017 Joe Grund
 - new package built with tito
 
-* Wed Jun 14 2017 Joe Grund <joe.grund@intel.com> - 1.0.0
+* Wed Jun 14 2017 Joe Grund <joe.grund@intel.com> - 1.0.0-2
 - initial package
