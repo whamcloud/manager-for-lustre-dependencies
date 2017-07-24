@@ -50,7 +50,7 @@ if [ $1 -eq 1 ] ; then
 fi
 
 %preun
-if [ $1 -eq 1 ] ; then
+if [ $1 -eq 0 ] ; then
   systemctl stop supervisor-status.service
   systemctl disable supervisor-status.service
   systemctl stop supervisor-status.socket
