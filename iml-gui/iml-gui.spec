@@ -31,5 +31,5 @@ rm -rf %{buildroot}
 /usr/lib/iml-manager/iml-gui
 
 %changelog
-* Wed Jun 14 2017 Joe Grund <joe.grund@intel.com> - 1.0.0-1
+* Wed Jun 14 2017 Joe Grund <joe.grund@intel.com> - 6.0.13-1
 - initial package
