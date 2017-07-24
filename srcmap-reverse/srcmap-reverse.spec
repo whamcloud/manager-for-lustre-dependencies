@@ -39,10 +39,10 @@ cp dist/main.js.map $RPM_BUILD_ROOT/usr/lib/main.js.map
 rm -rf %{buildroot}
 
 %files
-%attr(0744,root,root)/usr/sbin/srcmap-reverse
+%attr(0644,root,root)/usr/sbin/srcmap-reverse
 %attr(0444,root,root)/usr/lib/main.js.map
-%attr(0744,root,root)/usr/lib/systemd/system/srcmap-reverse.service
-%attr(0744,root,root)/usr/lib/systemd/system/srcmap-reverse.socket
+%attr(0644,root,root)/usr/lib/systemd/system/srcmap-reverse.service
+%attr(0644,root,root)/usr/lib/systemd/system/srcmap-reverse.socket
 
 %post
 if [ $1 -eq 1 ] ; then
@@ -59,5 +59,5 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
-* Fri Jul 21 2017 William Johnson <william.c.johnson@intel.com> - 3.0.3
+* Fri Jul 21 2017 William Johnson <william.c.johnson@intel.com> - 3.0.3-1
 - initial package
