@@ -39,7 +39,7 @@ cp dist/main.js.map $RPM_BUILD_ROOT/usr/lib/main.js.map
 rm -rf %{buildroot}
 
 %files
-%attr(0644,root,root)/usr/sbin/srcmap-reverse
+%attr(0755,root,root)/usr/sbin/srcmap-reverse
 %attr(0444,root,root)/usr/lib/main.js.map
 %attr(0644,root,root)/usr/lib/systemd/system/srcmap-reverse.service
 %attr(0644,root,root)/usr/lib/systemd/system/srcmap-reverse.socket
