@@ -1,0 +1,11 @@
+[Unit]
+Description=Source Map Reverse Service
+RefuseManualStart=true
+
+[Service]
+Restart=always
+Environment=NODE_ENV=production
+Environment=SRCMAP_REVERSE_FD=3
+ExecStart=/usr/bin/node /usr/lib/iml-srcmap-reverse/srcmap-reverse
+StandardOutput=journal+console
+StandardError=journal+console
