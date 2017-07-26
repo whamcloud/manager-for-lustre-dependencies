@@ -8,8 +8,8 @@ License:    MIT
 Group:      System Environment/Libraries
 URL:        https://github.com/intel-hpdd/srcmap-reverse
 Source0:    http://registry.npmjs.org/@iml/%{name}/-/%{name}-%{version}.tgz
-Source1:    iml-srcmap-reverse.service
-Source2:    iml-srcmap-reverse.socket
+Source1:    iml-srcmap-reverse.socket
+Source2:    iml-srcmap-reverse.service
 
 BuildArch:  noarch
 ExclusiveArch: %{nodejs_arches} noarch
@@ -31,32 +31,32 @@ by line.
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/usr/lib/systemd/system/
-cp %{_sourcedir}/iml-srcmap-reverse.socket %{buildroot}/usr/lib/systemd/system/iml-srcmap-reverse.socket
-cp %{_sourcedir}/iml-srcmap-reverse.service %{buildroot}/usr/lib/systemd/system/iml-srcmap-reverse.service
-mkdir -p %{buildroot}/usr/lib/iml-srcmap-reverse
-cp %{_builddir}/package/dist/srcmap-reverse.js %{buildroot}/usr/lib/iml-srcmap-reverse/srcmap-reverse
+cp %{SOURCE1} %{buildroot}/usr/lib/systemd/system/%{name}.socket
+cp %{SOURCE2} %{buildroot}/usr/lib/systemd/system/%{name}.service
+mkdir -p %{buildroot}/usr/lib/%{name}
+cp %{_builddir}/package/dist/srcmap-reverse.js %{buildroot}/usr/lib/%{name}/srcmap-reverse
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%attr(0755,root,root)/usr/lib/iml-srcmap-reverse/srcmap-reverse
-%attr(0644,root,root)/usr/lib/systemd/system/iml-srcmap-reverse.service
-%attr(0644,root,root)/usr/lib/systemd/system/iml-srcmap-reverse.socket
+%attr(0755,root,root)/usr/lib/%{name}/srcmap-reverse
+%attr(0644,root,root)/usr/lib/systemd/system/%{name}.socket
+%attr(0644,root,root)/usr/lib/systemd/system/%{name}.service
 
 %post
 if [ $1 -eq 1 ] ; then
-  systemctl enable iml-srcmap-reverse.socket
-  systemctl start iml-srcmap-reverse.socket
+  systemctl enable %{name}.socket
+  systemctl start %{name}.socket
 fi
 
 %preun
 if [ $1 -eq 0 ] ; then
-  systemctl stop iml-srcmap-reverse.service
-  systemctl disable iml-srcmap-reverse.service
-  systemctl stop iml-srcmap-reverse.socket
-  systemctl disable iml-srcmap-reverse.socket
-  rm /var/run/iml-srcmap-reverse.sock
+  systemctl stop %{name}.service
+  systemctl disable %{name}.service
+  systemctl stop %{name}.socket
+  systemctl disable %{name}.socket
+  rm /var/run/%{name}.sock
 fi
 
 %changelog
