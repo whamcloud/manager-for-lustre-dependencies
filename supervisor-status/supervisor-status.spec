@@ -2,7 +2,7 @@
 
 Name:       supervisor-status
 Version:    1.0.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Service that reports current supervisor status as JSON.
 License:    MIT
 Group:      System Environment/Libraries
@@ -40,22 +40,23 @@ rm -rf %{buildroot}
 
 %files
 %attr(0744,root,root)/usr/sbin/supervisor-status
-%attr(0744,root,root)/usr/lib/systemd/system/supervisor-status.service
-%attr(0744,root,root)/usr/lib/systemd/system/supervisor-status.socket
+%attr(0644,root,root)/usr/lib/systemd/system/supervisor-status.service
+%attr(0644,root,root)/usr/lib/systemd/system/supervisor-status.socket
 
 %post
-systemctl enable supervisor-status.socket
-systemctl start supervisor-status.socket
+if [ $1 -eq 1 ] ; then
+  systemctl enable supervisor-status.socket
+  systemctl start supervisor-status.socket
+fi
 
 %preun
-systemctl stop supervisor-status.service
-systemctl disable supervisor-status.service
-systemctl stop supervisor-status.socket
-systemctl disable supervisor-status.socket
+if [ $1 -eq 0 ] ; then
+  systemctl stop supervisor-status.service
+  systemctl disable supervisor-status.service
+  systemctl stop supervisor-status.socket
+  systemctl disable supervisor-status.socket
+fi
 
 %changelog
-* Wed Jun 14 2017 Joe Grund
-- new package built with tito
-
-* Wed Jun 14 2017 Joe Grund <joe.grund@intel.com> - 1.0.0
+* Wed Jun 14 2017 Joe Grund <joe.grund@intel.com> - 1.0.0-2
 - initial package
