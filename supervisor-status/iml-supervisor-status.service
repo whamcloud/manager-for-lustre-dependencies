@@ -1,0 +1,9 @@
+[Unit]
+Description=IML Supervisor Status Service
+RefuseManualStart=true
+
+[Service]
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /usr/lib/iml-supervisor-status/supervisor-status
+StandardOutput=journal+console
+StandardError=journal+console

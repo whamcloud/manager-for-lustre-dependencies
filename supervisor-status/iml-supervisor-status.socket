@@ -1,0 +1,8 @@
+[Unit]
+Description=IML Supervisor Status Socket
+
+[Socket]
+ListenStream=/var/run/iml-supervisor-status.sock
+
+[Install]
+WantedBy=sockets.target
