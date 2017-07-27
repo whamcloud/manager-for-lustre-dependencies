@@ -2,7 +2,7 @@
 
 Name:       iml-supervisor-status
 Version:    1.0.1
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    Service that reports current supervisor status as JSON.
 License:    MIT
 Group:      System Environment/Libraries
@@ -57,7 +57,9 @@ systemctl disable %{name}.socket
 rm /var/run/%{name}.sock
 
 %changelog
-* Wed Jul 27 2017 Will Johnson <william.c.johnson@intel.com> - 1.0.1-2
+* Wed Jul 27 2017 Will Johnson <william.c.johnson@intel.com> - 1.0.1-1
+- Put unit files in with dep folder instead of being coupled to the supervisor-status tar file
+- Move bundle from /usr/sbin to /usr/lib/iml-supervisor-status
 
 * Wed Jun 14 2017 Joe Grund <joe.grund@intel.com> - 1.0.0-2
 - initial package
