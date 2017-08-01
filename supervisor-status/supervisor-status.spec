@@ -46,15 +46,19 @@ rm -rf %{buildroot}
 %attr(0644,root,root)/usr/lib/systemd/system/%{name}.socket
 
 %post
-systemctl enable %{name}.socket
-systemctl start %{name}.socket
+if [ $1 -eq 1 ] ; then
+  systemctl enable %{name}.socket
+  systemctl start %{name}.socket
+fi
 
 %preun
-systemctl stop %{name}.service
-systemctl disable %{name}.service
-systemctl stop %{name}.socket
-systemctl disable %{name}.socket
-rm /var/run/%{name}.sock
+if [ $1 -eq 0 ] ; then
+  systemctl stop %{name}.service
+  systemctl disable %{name}.service
+  systemctl stop %{name}.socket
+  systemctl disable %{name}.socket
+  rm /var/run/%{name}.sock
+fi
 
 %changelog
 * Wed Jul 27 2017 Will Johnson <william.c.johnson@intel.com> - 1.0.1-1
