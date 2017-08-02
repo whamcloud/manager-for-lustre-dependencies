@@ -1,13 +1,11 @@
-%{?nodejs_find_provides_and_requires}
-
 Name:       iml-supervisor-status
 Version:    1.0.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Service that reports current supervisor status as JSON.
 License:    MIT
 Group:      System Environment/Libraries
 URL:        https://github.com/intel-hpdd/supervisor-status
-Source0:    http://registry.npmjs.org/@iml/%{name}/-/%{name}-%{version}.tgz
+Source0:    http://registry.npmjs.org/@iml/supervisor-status/-/supervisor-status-%{version}.tgz
 Source1:    iml-supervisor-status.socket
 Source2:    iml-supervisor-status.service
 
@@ -15,6 +13,7 @@ BuildArch:  noarch
 ExclusiveArch: %{nodejs_arches} noarch
 
 BuildRequires:  nodejs-packaging
+Requires: nodejs
 
 %description
 This module reports supervisord process status as a JSON array as a persistent daemon.
@@ -61,7 +60,13 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
-* Wed Jul 27 2017 Will Johnson <william.c.johnson@intel.com> - 1.0.1-1
+* Tue Aug 1 2017 Joe Grund <joe.grund@intel.com> - 1.0.1-2
+- Removed nodejs_find_provides_and_requires macro.
+- Fixed source to resolve to npm.
+- Added Requires: nodejs.
+- Changed changelog date.
+
+* Thu Jul 27 2017 Will Johnson <william.c.johnson@intel.com> - 1.0.1-1
 - Put unit files in with dep folder instead of being coupled to the supervisor-status tar file
 - Move bundle from /usr/sbin to /usr/lib/iml-supervisor-status
 
