@@ -1,13 +1,11 @@
-%{?nodejs_find_provides_and_requires}
-
 Name:       iml-srcmap-reverse
 Version:    3.0.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Service that reverses source map traces.
 License:    MIT
 Group:      System Environment/Libraries
 URL:        https://github.com/intel-hpdd/srcmap-reverse
-Source0:    http://registry.npmjs.org/@iml/%{name}/-/%{name}-%{version}.tgz
+Source0:    http://registry.npmjs.org/@iml/srcmap-reverse/-/srcmap-reverse-%{version}.tgz
 Source1:    iml-srcmap-reverse.socket
 Source2:    iml-srcmap-reverse.service
 
@@ -15,6 +13,7 @@ BuildArch:  noarch
 ExclusiveArch: %{nodejs_arches} noarch
 
 BuildRequires:  nodejs-packaging
+Requires: nodejs
 
 %description
 This module will run a http server listening on /var/run/iml-srcmap-reverse.sock. When the server receives
@@ -60,5 +59,10 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Tue Aug 1 2017 Joe Grund <joe.grund@intel.com> - 3.0.5-2
+- Removed nodejs_find_provides_and_requires macro.
+- Fixed source to resolve to npm.
+- Added Requires: nodejs.
+
 * Wed Jul 26 2017 William Johnson <william.c.johnson@intel.com> - 3.0.5-1
 - initial package
