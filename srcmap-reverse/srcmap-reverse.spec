@@ -1,6 +1,6 @@
 Name:       iml-srcmap-reverse
-Version:    3.0.5
-Release:    2%{?dist}
+Version:    3.0.6
+Release:    1%{?dist}
 Summary:    Service that reverses source map traces.
 License:    MIT
 Group:      System Environment/Libraries
@@ -59,6 +59,9 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Thu Aug 3 2017 Will Johnson <william.c.johnson@intel.com> - 3.0.6-1
+- Add logging for each reversed trace.
+
 * Tue Aug 1 2017 Joe Grund <joe.grund@intel.com> - 3.0.5-2
 - Removed nodejs_find_provides_and_requires macro.
 - Fixed source to resolve to npm.
