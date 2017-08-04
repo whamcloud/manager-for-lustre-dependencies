@@ -1,12 +1,12 @@
-%define repo_name gui
-Name:       iml-%{repo_name}
+%define base_name gui
+Name:       iml-%{base_name}
 Version:    6.1.0
 Release:    1%{?dist}
 Summary:    Graphical User Interface for Intel Manager for Lustre.
 License:    MIT
 Group:      System Environment/Libraries
-URL:        https://github.com/intel-hpdd/%{repo_name}
-Source0:    http://registry.npmjs.org/@iml/%{repo_name}/-/%{repo_name}-%{version}.tgz
+URL:        https://github.com/intel-hpdd/%{base_name}
+Source0:    http://registry.npmjs.org/@iml/%{base_name}/-/%{base_name}-%{version}.tgz
 
 BuildArch:  noarch
 
