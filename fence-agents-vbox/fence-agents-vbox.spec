@@ -10,15 +10,12 @@
 ###############################################################################
 ###############################################################################
 
-# keep around ready for later user
-## global alphatag git0a6184070
-
 Name: fence-agents-vbox
 Summary: Fence agent for VirtualBox
 Requires: openssh-clients
 Requires: fence-agents-common
 Version: 4.0.24
-Release: 1%{?alphatag:.%{alphatag}}%{?dist}
+Release: 2%{?alphatag:.%{alphatag}}%{?dist}
 License: GPLv2+ and LGPLv2+
 Group: System Environment/Base
 URL: http://sourceware.org/cluster/wiki/
@@ -206,106 +203,5 @@ rm -rf %{buildroot}
 ccs_update_schema > /dev/null 2>&1 ||:
 
 %changelog
-* Fri Aug 26 2016 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.0.24-1
-- new upstream release
-
-* Wed Jul 13 2016 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.0.23-2
-- fix build issue on s390
-
-* Tue Jul 12 2016 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.0.23-1
-- new upstream release
-- new package fence-agents-amt-ws
-- new package fence-agents-compute
-- new package fence-agents-drac
-- new package fence-agents-hds-cb
-- new package fence-agents-mpath
-- new package fence-agents-sanbox2
-- new package fence-agents-sbd
-- new package fence-agents-vbox
-- new package fence-agents-vmware
-- new package fence-agents-xenapi
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.20-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Aug 11 2015 Marek Grac <mgrac@redhat.com> - 4.0.20-1
-- new upstream release
-- new package fence-agents-rcd-serial
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.0.16-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Thu Mar 05 2015 Marek Grac <mgrac@redhat.com> - 4.0.16-1
-- new upstream release
-
-* Mon Feb 09 2015 Marek Grac <mgrac@redhat.com> - 4.0.15-1
-- new upstream release
-
-* Thu Jan 08 2015 Marek Grac <mgrac@redhat.com> - 4.0.14-1
-- new upstream release
-- new packages fence-agents-zvm and fence-agents-emerson
-
-* Thu Oct 16 2014 Marek Grac <mgrac@redhat.com> - 4.0.12-1
-- new upstream release
-- new package fence-agents-ilo-ssh
-
-* Wed Aug 27 2014 Marek Grac <mgrac@redhat.com> - 4.0.10
-- new upstream release
-- new package fence-agents-ilo-moonshot
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.0.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Fri May 16 2014 Marek Grac <mgrac@redhat.com> - 4.0.9
-- new upstream release
-- new package fence-agents-pve
-
-* Mon Apr 07 2014 Marek Grac <mgrac@redhat.com> - 4.0.8-1
-- new upstream release
-- new package fence-agents-raritan
-
-* Wed Feb 26 2014 Marek Grac <mgrac@redhat.com> - 4.0.7-3
-- requires a specific version of fence-agents-common
-
-* Mon Feb 17 2014 Marek Grac <mgrac@redhat.com> - 4.0.7-2
-- new upstream release
-- changed dependancy from nss/nspr to gnutls-utils
-
-* Fri Jan 10 2014 Marek Grac <mgrac@redhat.com> - 4.0.4-4
-- new upstream release
-- new package fence-agents-amt
-
-* Mon Oct 07 2013 Marek Grac <mgrac@redhat.com> - 4.0.4-3
-- new upstream release
-- new package fence-agents-netio
-
-* Tue Sep 03 2013 Marek Grac <mgrac@redhat.com> - 4.0.3-1
-- new upstream release
-- new packages fence-agents-brocade and fence-agents-ovh
-
-* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Thu Jul 18 2013 Petr Pisar <ppisar@redhat.com> - 4.0.1-2
-- Perl 5.18 rebuild
-
-* Mon Jul 01 2013 Marek Grac <mgrac@redhat.com> - 4.0.1-1
-- new upstream release
-
-* Mon Jun 24 2013 Marek Grac <mgrac@redhat.com> - 4.0.0-5
-- fence-agents-all should provide fence-agent for clean update path
-
-* Wed Apr 03 2013 Marek Grac <mgrac@redhat.com> - 4.0.0-4
-- minor changes in spec file
-
-* Thu Mar 21 2013 Marek Grac <mgrac@redhat.com> - 4.0.0-3
-- minor changes in spec file
-
-* Mon Mar 18 2013 Marek Grac <mgrac@redhat.com> - 4.0.0-2
-- minor changes in spec file
-
-* Mon Mar 11 2013 Marek Grac <mgrac@redhat.com> - 4.0.0-1
-- new upstream release
-- introducing subpackages
-
-
+* Fri Aug 11 2017 Joe Grund <joe.grund@intel.com> - 4.0.24-2
+- Extract fence-agents-vbox to standalone rpm
