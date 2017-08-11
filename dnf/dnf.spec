@@ -22,12 +22,13 @@
 
 Name:		dnf
 Version:	1.1.5
-Release:	2%{?snapshot}%{?dist}
+Release:	2.01%{?snapshot}%{?dist}
 Summary:	Package manager forked from Yum, using libsolv as a dependency resolver
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:	GPLv2+ and GPLv2 and GPL
 URL:		https://github.com/rpm-software-management/dnf
 Source0:    https://github.com/rpm-software-management/dnf/archive/%{name}-%{version}-%{origrel}/%{name}-%{version}-%{origrel}.tar.gz
+Patch1:     dnf-1.1.5-BZ#1375277.patch
 BuildArch:  noarch
 BuildRequires:  cmake
 BuildRequires:  gettext
@@ -157,6 +158,7 @@ Alternative CLI to "dnf upgrade" suitable for automatic, regular execution.
 
 %prep
 %setup -q -n dnf-dnf-%{version}-%{origrel}
+%patch1 -p1
 %if %{with python3}
 rm -rf py3
 mkdir ../py3
@@ -325,6 +327,9 @@ exit 0
 %systemd_postun_with_restart dnf-automatic.timer
 
 %changelog
+* Fri Aug 11 2017 Brian J. Murrell <brian.murrell@intel.com> 1.1.5-2.01
+- Add patch for RHBZ#1375277
+
 * Wed Dec 23 2015 Neal Gompa <ngompa13{%}gmail{*}com> - 1.1.5-2
 - Added python3 bcond to build on EL7
 
