@@ -1,6 +1,6 @@
 %define base_name gui
 Name:       iml-%{base_name}
-Version:    6.1.0
+Version:    6.1.1
 Release:    1%{?dist}
 Summary:    Graphical User Interface for Intel Manager for Lustre.
 License:    MIT
@@ -32,6 +32,19 @@ rm -rf %{buildroot}
 /usr/lib/iml-manager/%{name}
 
 %changelog
+* Fri Aug 11 2017 Will Johnson <william.c.johnson@intel.com> - 6.1.1-1
+- Fix maybe bugs
+- Emit resize event on panel size change
+- Implement as-value for inferno
+- Create inferno-utils
+- Implement chart components for inferno
+- Integrate online help
+- Fix chart issues
+- Remove scroll boundary from EULA
+- Fix archive number
+- Re-write storage plugin screen
+- Remove set-immediate
+
 * Fri Aug 04 2017 Will Johnson <william.c.johnson@intel.com> - 6.1.0-1
 - Integrate srcmap-reverse
 
