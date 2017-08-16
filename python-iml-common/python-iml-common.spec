@@ -33,18 +33,19 @@ areas of the IML project utilise common code that is shared distributed through
 this package.This packaging intends to improve code reuse and componentization
 within the IML project.
 
-
 %prep
 %setup -c -n %{rpm_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
 %build
-%py2_build
+%{__python2} setup.py build
 
 %install
-%py2_install
+%{__python2} setup.py install --skip-build --root %{buildroot}
 
+%check
+%{__python2} setup.py test
 
 %files -n python2-%{rpm_name}-%{version}
 %license license.txt
