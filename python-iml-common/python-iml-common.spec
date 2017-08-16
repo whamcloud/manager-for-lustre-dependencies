@@ -25,7 +25,7 @@ within the IML project.
 
 %package -n     python2-%{pypi_name}%{major_minor}-%{version}
 Summary:        %{summary}
-%{?python_provide:%python_provide python2-%{pypi_name}%{major_minor})
+%{?python_provide:%python_provide python2-%{pypi_name}%{major_minor}}
 
 %description -n python2-%{pypi_name}%{major_minor}-%{version}
 A Python package that contains common components for the IML project Different
