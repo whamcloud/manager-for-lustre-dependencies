@@ -10,7 +10,7 @@ Summary:        Common library used by multiple IML components
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/iml-common
-Source0:        
+Source0:        https://github.com/intel-hpdd/iml-common/archive/v%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python2-devel
