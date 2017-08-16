@@ -39,12 +39,15 @@ within the IML project.
 rm -rf %{pypi_name}.egg-info
 
 %build
-%{__python2} setup.py build
+cd %{pypi_name}-%{version}
+%{__python} setup.py build
 
 %install
-%{__python2} setup.py install --skip-build --root %{buildroot}
+cd %{pypi_name}-%{version}
+%{__python} setup.py install --skip-build --root %{buildroot}
 
 %check
+cd %{pypi_name}-%{version}
 %{__python2} setup.py test
 
 %files -n python2-%{rpm_name}-%{version}
