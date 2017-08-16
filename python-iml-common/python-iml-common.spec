@@ -36,21 +36,25 @@ within the IML project.
 %prep
 %setup -c -n %{rpm_name}-%{version}
 # Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+rm -rf %{rpm_name}.egg-info
+pushd .
+cd ..
+mv %{rpm_name}-%{version}/%{pypi_name}-%{version} ./%{pypi_name}-%{version}
+rmdir %{rpm_name}-%{version}
+mv %{pypi_name}-%{version} %{rpm_name}-%{version}
+popd
 
 %build
-cd %{pypi_name}-%{version}
 %{__python} setup.py build
 
 %install
-cd %{pypi_name}-%{version}
 %{__python} setup.py install --skip-build --root %{buildroot}
 
 %check
-cd %{pypi_name}-%{version}
-%{__python2} setup.py test
+%{__python} setup.py test
 
 %files -n python2-%{rpm_name}-%{version}
+%defattr(-,root,root,-)
 %license license.txt
 %doc README.md README.rst
 %{python2_sitelib}/iml_common
