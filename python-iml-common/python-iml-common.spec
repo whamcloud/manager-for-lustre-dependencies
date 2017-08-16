@@ -2,8 +2,9 @@
 %global pypi_name iml-common
 %global major_minor 1.0
 %global patch 6
+%global rpm_name %{pypi_name}%{major_minor}
 
-Name:           python-%{pypi_name}%{major_minor}
+Name:           python-%{rpm_name}
 Version:        %{major_minor}.%{patch}
 Release:        1%{?dist}
 Summary:        Common library used by multiple IML components
@@ -22,11 +23,11 @@ areas of the IML project utilise common code that is shared distributed through
 this package.This packaging intends to improve code reuse and componentization
 within the IML project.
 
-%package -n     python2-%{pypi_name}%{major_minor}-%{version}
+%package -n     python2-%{rpm_name}-%{version}
 Summary:        %{summary}
-%{?python_provide:%python_provide python2-%{pypi_name}%{major_minor}}
+%{?python_provide:%python_provide python2-%{rpm_name}}
 
-%description -n python2-%{pypi_name}%{major_minor}-%{version}
+%description -n python2-%{rpm_name}-%{version}
 A Python package that contains common components for the IML project Different
 areas of the IML project utilise common code that is shared distributed through
 this package.This packaging intends to improve code reuse and componentization
@@ -34,7 +35,7 @@ within the IML project.
 
 
 %prep
-%autosetup -n %{pypi_name}%{major_minor}-%{version}
+%setup -c -n %{rpm_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -45,7 +46,7 @@ rm -rf %{pypi_name}.egg-info
 %py2_install
 
 
-%files -n python2-%{pypi_name}%{major_minor}-%{version}
+%files -n python2-%{rpm_name}-%{version}
 %license license.txt
 %doc README.md README.rst
 %{python2_sitelib}/iml_common
