@@ -12,6 +12,7 @@ BuildArch:  noarch
 ExclusiveArch: %{nodejs_arches} noarch
 
 BuildRequires:  nodejs-packaging
+BuildRequires: systemd
 Requires: nodejs
 
 %description
@@ -26,12 +27,12 @@ Builds an in-memory representation of devices. Uses udev rules to handle change 
 %install
 rm -rf %{buildroot}
 
-mkdir -p %{buildroot}/usr/lib/systemd/system
-cp %{_builddir}/package/dist/device-scanner-daemon/systemd-units/%{base_name}.socket %{buildroot}/usr/lib/systemd/system
-cp %{_builddir}/package/dist/device-scanner-daemon/systemd-units/%{base_name}.service %{buildroot}/usr/lib/systemd/system
+mkdir -p %{buildroot}%{_unitdir}
+cp %{_builddir}/package/dist/device-scanner-daemon/systemd-units/%{base_name}.socket %{buildroot}%{_unitdir}
+cp %{_builddir}/package/dist/device-scanner-daemon/systemd-units/%{base_name}.service %{buildroot}%{_unitdir}
 
-mkdir -p %{buildroot}/usr/lib/%{name}-daemon
-cp %{_builddir}/package/dist/device-scanner-daemon/device-scanner-daemon %{buildroot}/usr/lib/%{name}-daemon
+mkdir -p %{buildroot}%{_libdir}/%{name}-daemon
+cp %{_builddir}/package/dist/device-scanner-daemon/device-scanner-daemon %{buildroot}%{_libdir}/%{name}-daemon
 
 mkdir -p %{buildroot}/lib/udev
 cp %{_builddir}/package/dist/block-device-listener/block-device-listener %{buildroot}/lib/udev
@@ -43,10 +44,10 @@ cp %{_builddir}/package/dist/block-device-listener/udev-rules/99-iml-device-scan
 rm -rf %{buildroot}
 
 %files
-%dir /usr/lib/%{name}-daemon
-%attr(0755,root,root)/usr/lib/%{name}-daemon/device-scanner-daemon
-%attr(0644,root,root)/usr/lib/systemd/system/%{base_name}.service
-%attr(0644,root,root)/usr/lib/systemd/system/%{base_name}.socket
+%dir %{_libdir}/%{name}-daemon
+%attr(0755,root,root)%{_libdir}/%{name}-daemon/device-scanner-daemon
+%attr(0644,root,root)%{_unitdir}/%{base_name}.service
+%attr(0644,root,root)%{_unitdir}/%{base_name}.socket
 %attr(0755,root,root)/lib/udev/block-device-listener
 %attr(0644,root,root)/etc/udev/rules.d/99-iml-device-scanner.rules
 
