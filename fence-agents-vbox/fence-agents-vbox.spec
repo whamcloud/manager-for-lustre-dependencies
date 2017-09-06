@@ -53,12 +53,11 @@ The fence-agents-vbox package contains a fence agent for VirtualBox dom0 accesse
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
-rm %{buildroot}%{_libexecdir}/fence_kdump_send
-find %{buildroot}%{_exec_prefix}/sbin/ -type f ! -name "fence_vbox" | xargs rm
-find %{buildroot}%{_datadir}/cluster/ -type f ! -path "%{buildroot}%{_datadir}/cluster/relaxng/*" | xargs rm
-find %{buildroot}%{_datadir}/cluster/relaxng/ -type f | xargs rm
-find %{buildroot}%{_defaultdocdir}/fence-agents/ -type f | xargs rm
-find %{buildroot}%{_datadir}/fence/ -type f | xargs rm
+rm -rf %{buildroot}%{_libexecdir}/fence_kdump_send
+find %{buildroot}%{_sbindir}/ -type f ! -name "fence_vbox" | xargs rm
+rm -rf %{buildroot}%{_datadir}/cluster/
+rm -rf %{buildroot}%{_defaultdocdir}/fence-agents
+rm -rf %{buildroot}%{_datadir}/fence/
 find %{buildroot}%{_mandir}/man8/ -type f ! -name "fence_vbox*" | xargs rm
 
 %clean
