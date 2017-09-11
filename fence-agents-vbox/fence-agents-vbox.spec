@@ -20,6 +20,7 @@ License: GPLv2+ and LGPLv2+
 Group: System Environment/Base
 URL: http://sourceware.org/cluster/wiki/
 Source0: https://fedorahosted.org/releases/f/e/fence-agents/fence-agents-%{version}.tar.xz
+Patch1: fence-agents-%{version}.patch
 
 ## Setup/build bits
 
