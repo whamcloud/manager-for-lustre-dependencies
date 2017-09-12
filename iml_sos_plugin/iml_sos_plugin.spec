@@ -1,7 +1,7 @@
 %global pypi_name iml_sos_plugin
 
 Name:           %{pypi_name}
-Version:        1.0.2
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        A sosreport plugin for collecting IML data.
 License:        MIT
@@ -38,6 +38,9 @@ mv %{buildroot}/%{python2_sitelib}/iml_sos_plugin/iml.py* %{buildroot}/%{python2
 %{python2_sitelib}/sos/plugins/iml.py*
 
 %changelog
+* Tue Sep 12 2017 Joe Grund <joe.grund@intel.com> 2.0.0-1
+- Update to work with sos 3.4
+
 * Thu Sep 7 2017 Joe Grund <joe.grund@intel.com> 1.0.2-1
 - Add some more file collections.
 - Forward args to sosreport.
