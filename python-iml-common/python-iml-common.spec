@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.2.2
 %global pypi_name iml-common
 %global major_minor 1.0
-%global patch 6
+%global patch 7
 %global rpm_name %{pypi_name}%{major_minor}
 
 Name:           python-%{rpm_name}
@@ -37,12 +37,10 @@ within the IML project.
 %setup -c -n %{rpm_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{rpm_name}.egg-info
-pushd .
 cd ..
 mv %{rpm_name}-%{version}/%{pypi_name}-%{version} ./%{pypi_name}-%{version}
 rmdir %{rpm_name}-%{version}
 mv %{pypi_name}-%{version} %{rpm_name}-%{version}
-popd
 
 %build
 %{__python} setup.py build
