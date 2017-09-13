@@ -37,12 +37,10 @@ within the IML project.
 %setup -c -n %{rpm_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{rpm_name}.egg-info
-pushd .
 cd ..
 mv %{rpm_name}-%{version}/%{pypi_name}-%{version} ./%{pypi_name}-%{version}
 rmdir %{rpm_name}-%{version}
 mv %{pypi_name}-%{version} %{rpm_name}-%{version}
-popd
 
 %build
 %{__python} setup.py build
