@@ -1,6 +1,6 @@
 %define base_name gui
 Name:       iml-%{base_name}
-Version:    6.1.0
+Version:    6.2.1
 Release:    1%{?dist}
 Summary:    Graphical User Interface for Intel Manager for Lustre.
 License:    MIT
@@ -32,6 +32,21 @@ rm -rf %{buildroot}
 /usr/lib/iml-manager/%{name}
 
 %changelog
+* Wed Sep 13 2017 Will Johnson <william.c.johnson@intel.com> - 6.2.1-1
+- Fix zombie streams
+
+* Thu Aug 17 2017 Will Johnson <william.c.johnson@intel.com> - 6.2.0-1
+- Remove eula (#71)
+- Inline templates (#76)
+- Fix dispatch source usage with ALLOW_ANONYMOUS_READ (#74)
+- Fix popover on server status package (#70)
+- Integrate online help (#65)
+- Fix chart issues (#66)
+- Fix archive number (#68)
+- Rewrite storage plugin (#29)
+- Fix setImmediate text in address bar (#69)
+- Implement chart components (#63)
+
 * Fri Aug 04 2017 Will Johnson <william.c.johnson@intel.com> - 6.1.0-1
 - Integrate srcmap-reverse
 
