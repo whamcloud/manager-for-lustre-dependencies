@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.2.2
 %global pypi_name iml-common
 %global major_minor 1.0
-%global patch 6
+%global patch 7
 %global rpm_name %{pypi_name}%{major_minor}
 
 Name:           python-%{rpm_name}
