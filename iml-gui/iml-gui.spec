@@ -1,6 +1,6 @@
 %define base_name gui
 Name:       iml-%{base_name}
-Version:    6.2.1
+Version:    6.2.2
 Release:    1%{?dist}
 Summary:    Graphical User Interface for Intel Manager for Lustre.
 License:    MIT
@@ -32,6 +32,9 @@ rm -rf %{buildroot}
 /usr/lib/iml-manager/%{name}
 
 %changelog
+* Fri Sep 15 2017 Will Johnson <william.c.johnson@intel.com> - 6.2.2-1
+- Fix font issue
+
 * Wed Sep 13 2017 Will Johnson <william.c.johnson@intel.com> - 6.2.1-1
 - Fix zombie streams
 
