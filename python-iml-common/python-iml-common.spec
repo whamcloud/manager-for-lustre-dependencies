@@ -23,11 +23,11 @@ areas of the IML project utilise common code that is shared distributed through
 this package.This packaging intends to improve code reuse and componentization
 within the IML project.
 
-%package -n     python2-%{rpm_name}-%{version}
+%package -n     python2-%{rpm_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python2-%{rpm_name}}
 
-%description -n python2-%{rpm_name}-%{version}
+%description -n python2-%{rpm_name}
 A Python package that contains common components for the IML project Different
 areas of the IML project utilise common code that is shared distributed through
 this package.This packaging intends to improve code reuse and componentization
@@ -51,7 +51,7 @@ mv %{pypi_name}-%{version} %{rpm_name}-%{version}
 %check
 %{__python} setup.py test
 
-%files -n python2-%{rpm_name}-%{version}
+%files -n python2-%{rpm_name}
 %defattr(-,root,root,-)
 %license license.txt
 %doc README.md README.rst
@@ -59,5 +59,5 @@ mv %{pypi_name}-%{version} %{rpm_name}-%{version}
 %{python2_sitelib}/iml_common-%{version}-py?.?.egg-info
 
 %changelog
-* Thu Aug 10 2017  - 1.0.6-1
+* Fri Sep 15 2017  - 1.0.7-1
 - Initial package.
