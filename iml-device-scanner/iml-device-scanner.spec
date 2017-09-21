@@ -1,6 +1,6 @@
 %define base_name device-scanner
 Name:       iml-%{base_name}
-Version:    1.0.2
+Version:    1.1.0
 Release:    1%{?dist}
 Summary:    Builds an in-memory representation of devices. Uses udev rules to handle change events.
 License:    MIT
@@ -14,7 +14,6 @@ ExclusiveArch: %{nodejs_arches} noarch
 BuildRequires:  nodejs-packaging
 BuildRequires: systemd
 Requires: nodejs
-Requires: socat
 
 %description
 Builds an in-memory representation of devices. Uses udev rules to handle change events.
@@ -57,7 +56,6 @@ if [ $1 -eq 1 ] ; then
   systemctl enable %{base_name}.socket
   systemctl start %{base_name}.socket
   udevadm trigger --action=change --subsystem-match=block
-  echo '{ "ACTION": "read" }' | socat - UNIX-CONNECT:/var/run/device-scanner.sock
 fi
 
 %preun
@@ -70,6 +68,12 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Thu Sep 21 2017 Joe Grund <joe.grund@intel.com> - 1.1.0-1
+- Exclude unneeded devices.
+- Get device ro status.
+- Remove manual udev parsing.
+- Remove socat as dep, device-scanner will listen to change events directly.
+
 * Mon Sep 18 2017 Joe Grund <joe.grund@intel.com> - 1.0.2-1
 - Fix missing keys to be option types.
 - Add rules for scsi ids
