@@ -6,7 +6,7 @@
 
 Name:           python-%{rpm_name}
 Version:        %{major_minor}.%{patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common library used by multiple IML components
 
 License:        MIT
@@ -55,10 +55,12 @@ mv %{pypi_name}-%{version} %{rpm_name}-%{version}
 %defattr(-,root,root,-)
 %license license.txt
 %doc README.md README.rst
-%{python2_sitelib}/iml_common
-%{python2_sitelib}/iml_common-%{version}-py?.?.egg-info
+%{python2_sitelib}/%{rpm_name}
+%{python2_sitelib}/%{rpm_name}-%{version}-py?.?.egg-info
 
 %changelog
+* Wed Sep 27 2017  - 1.1.0-2
+- Install in sitelib dir under rpm name.
 * Fri Sep 15 2017  - 1.1.0-1
 - Updates to remove force zpool imports.
 * Fri Sep 15 2017  - 1.0.7-1
