@@ -42,7 +42,7 @@ mv %{rpm_name}-%{version}/%{pypi_name}-%{version} ./%{pypi_name}-%{version}
 rmdir %{rpm_name}-%{version}
 mv %{pypi_name}-%{version} %{rpm_name}-%{version}
 ls %{rpm_name}-%{version}
-mv %{rpm_name}-%{version}/%{pypi_name} %{rpm_name}-%{version}/%{rpm_name}
+mv %{rpm_name}-%{version}/iml_common %{rpm_name}-%{version}/iml_common%{major_minor}
 
 %build
 %{__python} setup.py build
@@ -57,8 +57,8 @@ mv %{rpm_name}-%{version}/%{pypi_name} %{rpm_name}-%{version}/%{rpm_name}
 %defattr(-,root,root,-)
 %license license.txt
 %doc README.md README.rst
-%{python2_sitelib}/%{rpm_name}
-%{python2_sitelib}/%{rpm_name}-%{version}-py?.?.egg-info
+%{python2_sitelib}/iml_common%{major_minor}
+%{python2_sitelib}/iml_common%{major_minor}-%{version}-py?.?.egg-info
 
 %changelog
 * Wed Sep 27 2017  - 1.1.0-2
