@@ -6,7 +6,7 @@
 
 Name:           python-%{rpm_name}
 Version:        %{major_minor}.%{patch}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Common library used by multiple IML components
 
 License:        MIT
