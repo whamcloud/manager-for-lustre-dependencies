@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.2.2
 %global pypi_name iml-common
 %global major_minor 1.1
-%global patch 0
+%global patch 1
 %global rpm_name %{pypi_name}%{major_minor}
 
 Name:           python-%{rpm_name}
@@ -59,6 +59,8 @@ mv %{pypi_name}-%{version} %{rpm_name}-%{version}
 %{python2_sitelib}/iml_common-%{version}-py?.?.egg-info
 
 %changelog
+* Thu Sep 28 2017  - 1.1.1-1
+- Remove zfs object store on agent initialisation and termination.
 * Fri Sep 15 2017  - 1.1.0-1
 - Updates to remove force zpool imports.
 * Fri Sep 15 2017  - 1.0.7-1
