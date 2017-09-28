@@ -1,6 +1,6 @@
 %define base_name device-scanner
 Name:       iml-%{base_name}
-Version:    1.1.0
+Version:    1.1.1
 Release:    1%{?dist}
 Summary:    Builds an in-memory representation of devices. Uses udev rules to handle change events.
 License:    MIT
@@ -68,6 +68,10 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Wed Sep 27 2017 Joe Grund <joe.grund@intel.com> - 1.1.1-1
+- Fix bug where devices weren't removed.
+- Cast empty IML_SIZE string to None.
+
 * Thu Sep 21 2017 Joe Grund <joe.grund@intel.com> - 1.1.0-1
 - Exclude unneeded devices.
 - Get device ro status.
