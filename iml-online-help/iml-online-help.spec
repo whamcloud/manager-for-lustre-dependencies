@@ -1,6 +1,6 @@
 %define base_name online-help
 Name:       iml-%{base_name}
-Version:    2.1.1
+Version:    2.2.0
 Release:    1%{?dist}
 Summary:    IML Online Help
 License:    MIT
@@ -32,6 +32,10 @@ rm -rf %{buildroot}
 /usr/lib/iml-manager/%{name}
 
 %changelog
+* Tue Oct 03 2017 Will Johnson <william.c.johnson@intel.com> - 2.2.0-1
+- Add contributor docs
+- Clean-ups
+
 * Wed Sep 27 2017 Will Johnson <william.c.johnson@intel.com> - 2.1.1-1
 - Thorough review of Online Help Docs
 - Thorough review of Install Guide
