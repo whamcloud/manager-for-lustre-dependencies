@@ -1,6 +1,6 @@
 # Created by pyp2rpm-3.2.2
 %global pypi_name iml-common
-%global major_minor 1.2
+%global major_minor 1.3
 %global patch 0
 %global rpm_name %{pypi_name}%{major_minor}
 
@@ -59,6 +59,9 @@ mv %{pypi_name}-%{version} %{rpm_name}-%{version}
 %{python2_sitelib}/iml_common-%{version}-py?.?.egg-info
 
 %changelog
+* Wed Oct 04 2017 Joe Grund <joe.grund@intel.com> 1.3.0-1
+- Update to upstream 1.3.0
+
 * Tue Oct 03 2017 Brian J. Murrell <brian.murrell@intel.com> 1.2.0-1
 - Update to upstream 1.2.0
 
