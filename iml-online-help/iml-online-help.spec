@@ -1,6 +1,6 @@
 %define base_name online-help
 Name:       iml-%{base_name}
-Version:    2.2.0
+Version:    2.3.0
 Release:    1%{?dist}
 Summary:    IML Online Help
 License:    MIT
@@ -32,6 +32,11 @@ rm -rf %{buildroot}
 /usr/lib/iml-manager/%{name}
 
 %changelog
+* Thu Oct 05 2017 Will Johnson <william.c.johnson@intel.com> - 2.3.0-1
+- Add page for managed zfs filesystem creation
+- Add page for creating offline repos
+- Small fix-up for installing repos on client nodes
+
 * Tue Oct 03 2017 Will Johnson <william.c.johnson@intel.com> - 2.2.0-1
 - Add contributor docs
 - Clean-ups
