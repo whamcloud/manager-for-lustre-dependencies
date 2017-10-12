@@ -1,7 +1,7 @@
 %global pypi_name iml_sos_plugin
 
 Name:           %{pypi_name}
-Version:        2.0.1
+Version:        2.0.2
 Release:        1%{?dist}
 Summary:        A sosreport plugin for collecting IML data.
 License:        MIT
@@ -38,6 +38,9 @@ mv %{buildroot}/%{python2_sitelib}/iml_sos_plugin/iml.py* %{buildroot}/%{python2
 %{python2_sitelib}/sos/plugins/iml.py*
 
 %changelog
+* Thu Oct 12 2017 Joe Grund <joe.grund@intel.com> 2.0.2-1
+- Fix log-size param to dash-case.
+
 * Wed Oct 11 2017 Joe Grund <joe.grund@intel.com> 2.0.1-1
 - Add yum plugin to iml-diagnostics.
 - Ensure no log tailing is performed for chroma log collection.
