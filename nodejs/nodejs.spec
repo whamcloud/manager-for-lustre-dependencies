@@ -21,7 +21,7 @@
 %global nodejs_patch 3
 %global nodejs_abi %{nodejs_major}.%{nodejs_minor}
 %global nodejs_version %{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}
-%global nodejs_release 1
+%global nodejs_release 1.01
 
 # == Bundled Dependency Versions ==
 # v8 - from deps/v8/include/v8-version.h
@@ -96,10 +96,11 @@ Source7: nodejs_native.attr
 # Disable running gyp on bundled deps we don't use
 Patch1: 0001-Disable-running-gyp-files-for-bundled-deps.patch
 
+Patch100: 0100-Use-xargs-for-long-commands.patch
+
 BuildRequires: python-devel
 BuildRequires: libuv-devel >= 1:1.9.1
 Requires: libuv >= 1:1.9.1
-Requires: http-parser >= 2.7.0
 BuildRequires: libicu-devel
 BuildRequires: zlib-devel
 BuildRequires: gcc >= 4.8.0
@@ -135,6 +136,7 @@ Provides: nodejs(engine) = %{nodejs_version}
 # The ham-radio group has agreed to rename their binary for us, but
 # in the meantime, we're setting an explicit Conflicts: here
 Conflicts: node <= 0.3.2-12
+Obsoletes: nodejs < 1:6.11.3-1
 
 # The punycode module was absorbed into the standard library in v0.6.
 # It still exists as a seperate package for the benefit of users of older
@@ -160,14 +162,6 @@ Provides: bundled(c-ares) = %{c_ares_version}
 # against a shared system version entirely.
 # See https://github.com/nodejs/node/commit/d726a177ed59c37cf5306983ed00ecd858cfbbef
 Provides: bundled(v8) = %{v8_version}
-
-# Make sure we keep NPM up to date when we update Node.js
-%if 0%{?epel}
-# EPEL doesn't support Recommends, so make it strict
-Requires: npm = %{npm_epoch}:%{npm_version}-%{npm_release}%{?dist}
-%else
-Recommends: npm = %{npm_epoch}:%{npm_version}-%{npm_release}%{?dist}
-%endif
 
 
 %description
@@ -238,6 +232,7 @@ rm -rf deps/http-parser \
        deps/uv \
        deps/zlib
 
+%patch100 -p0
 
 %build
 # build with debugging symbols and add defines from libuv (#892601)
@@ -416,6 +411,11 @@ NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules %{buildroot}/%{_bindir}/node -
 %{_pkgdocdir}/npm/doc
 
 %changelog
+* Thu Oct 19 2017 Brian J. Murrell <brian.murrell@intel.com> 6.11.3-1.01
+- Rebuild from EPEL as a bridge from the nodesource release to EPEL
+  - add a patch to fix building with long paths
+  - don't Requires: npm
+
 * Thu Sep 07 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.3-1
 - Update to 6.11.3
 - https://nodejs.org/en/blog/release/v6.11.3/
