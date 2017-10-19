@@ -1,5 +1,7 @@
 %global with_debug 1
 
+%{!?_with_bootstrap: %global bootstrap 0}
+
 %{?!_pkgdocdir:%global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 # ARM builds currently break on the Debug builds, so we'll just
@@ -15,18 +17,18 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 6
-%global nodejs_minor 10
+%global nodejs_minor 11
 %global nodejs_patch 3
 %global nodejs_abi %{nodejs_major}.%{nodejs_minor}
 %global nodejs_version %{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}
-%global nodejs_release 1.01
+%global nodejs_release 1
 
 # == Bundled Dependency Versions ==
 # v8 - from deps/v8/include/v8-version.h
 %global v8_major 5
 %global v8_minor 1
 %global v8_build 281
-%global v8_patch 101
+%global v8_patch 107
 # V8 presently breaks ABI at least every x.y release while never bumping SONAME
 %global v8_abi %{v8_major}.%{v8_minor}
 %global v8_version %{v8_major}.%{v8_minor}.%{v8_build}.%{v8_patch}
@@ -36,6 +38,12 @@
 %global c_ares_minor 10
 %global c_ares_patch 1
 %global c_ares_version %{c_ares_major}.%{c_ares_minor}.%{c_ares_patch}
+
+# http-parser - from deps/http_parser/http_parser.h
+%global http_parser_major 2
+%global http_parser_minor 7
+%global http_parser_patch 0
+%global http_parser_version %{http_parser_major}.%{http_parser_minor}.%{http_parser_patch}
 
 # punycode - from lib/punycode.js
 # Note: this was merged into the mainline since 0.6.x
@@ -88,43 +96,29 @@ Source7: nodejs_native.attr
 # Disable running gyp on bundled deps we don't use
 Patch1: 0001-Disable-running-gyp-files-for-bundled-deps.patch
 
-# EPEL only has OpenSSL 1.0.1, so we need to carry a patch on that platform
-Patch2: 0002-Use-openssl-1.0.1.patch
-
-# use system certificates instead of the bundled ones
-# Backported from upstream 7.5.0+
-Patch3: 0003-crypto-Use-system-CAs-instead-of-using-bundled-ones.patch
-
-# Backported upstream patch to allow building with GCC 7 from
-# https://github.com/nodejs/node/commit/2bbee49e6f170a5d6628444a7c9a2235fe0dd929
-Patch4: 0004-Fix-compatibility-with-GCC-7.patch
-
-# RHEL 7 still uses OpenSSL 1.0.1 for now, and it segfaults on SSL
-# Revert this upstream patch until RHEL 7 upgrades to 1.0.2
-Patch5: EPEL01-openssl101-compat.patch
-
-Patch100: 0100-Use-xargs-for-long-commands.patch
-
 BuildRequires: python-devel
 BuildRequires: libuv-devel >= 1:1.9.1
 Requires: libuv >= 1:1.9.1
+Requires: http-parser >= 2.7.0
 BuildRequires: libicu-devel
 BuildRequires: zlib-devel
 BuildRequires: gcc >= 4.8.0
 BuildRequires: gcc-c++ >= 4.8.0
-BuildRequires: http-parser-devel >= 2.7.0
 
-%if 0%{?epel}
-BuildRequires: openssl-devel >= 1:1.0.1
+%if ! 0%{?bootstrap}
+BuildRequires: systemtap-sdt-devel
+BuildRequires: http-parser-devel >= 2.7.0
 %else
+Provides: bundled(http-parser) = %{http_parser_version}
+%endif
+
 %if 0%{?fedora} > 25
 BuildRequires: compat-openssl10-devel >= 1:1.0.2
 %else
 BuildRequires: openssl-devel >= 1:1.0.2
 %endif
-%endif
 
-# we need the system certificate store when Patch2 is applied
+# we need the system certificate store
 Requires: ca-certificates
 
 #we need ABI virtual provides where SONAMEs aren't enough/not present so deps
@@ -141,7 +135,6 @@ Provides: nodejs(engine) = %{nodejs_version}
 # The ham-radio group has agreed to rename their binary for us, but
 # in the meantime, we're setting an explicit Conflicts: here
 Conflicts: node <= 0.3.2-12
-Obsoletes: nodejs < 1:6.10.3-1
 
 # The punycode module was absorbed into the standard library in v0.6.
 # It still exists as a seperate package for the benefit of users of older
@@ -168,6 +161,14 @@ Provides: bundled(c-ares) = %{c_ares_version}
 # See https://github.com/nodejs/node/commit/d726a177ed59c37cf5306983ed00ecd858cfbbef
 Provides: bundled(v8) = %{v8_version}
 
+# Make sure we keep NPM up to date when we update Node.js
+%if 0%{?epel}
+# EPEL doesn't support Recommends, so make it strict
+Requires: npm = %{npm_epoch}:%{npm_version}-%{npm_release}%{?dist}
+%else
+Recommends: npm = %{npm_epoch}:%{npm_version}-%{npm_release}%{?dist}
+%endif
+
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime
@@ -184,6 +185,9 @@ Requires: libuv-devel%{?_isa}
 Requires: openssl-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 Requires: nodejs-packaging
+%if ! 0%{?bootstrap}
+Requires: http-parser-devel%{?_isa}
+%endif
 
 %description devel
 Development headers for the Node.js JavaScript runtime.
@@ -234,19 +238,6 @@ rm -rf deps/http-parser \
        deps/uv \
        deps/zlib
 
-# Use system CA certificates
-%patch3 -p1
-
-# Fix GCC7 build
-%patch4 -p1
-
-%if 0%{?epel}
-%patch2 -p1
-%patch5 -p1
-%endif
-
-%patch100 -p0
-
 
 %build
 # build with debugging symbols and add defines from libuv (#892601)
@@ -267,6 +258,7 @@ export CXXFLAGS='%{optflags} -g \
 export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
 
+%if ! 0%{?bootstrap}
 ./configure --prefix=%{_prefix} \
            --shared-openssl \
            --shared-zlib \
@@ -275,6 +267,15 @@ export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
            --without-dtrace \
            --with-intl=system-icu \
            --openssl-use-def-ca-store
+%else
+./configure --prefix=%{_prefix} \
+           --shared-openssl \
+           --shared-zlib \
+           --shared-libuv \
+           --without-dtrace \
+           --with-intl=system-icu \
+           --openssl-use-def-ca-store
+%endif
 
 %if %{?with_debug} == 1
 # Setting BUILDTYPE=Debug builds both release and debug binaries
@@ -415,10 +416,40 @@ NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules %{buildroot}/%{_bindir}/node -
 %{_pkgdocdir}/npm/doc
 
 %changelog
-* Wed May 31 2017 Brian J. Murrell <brian.murrell@intel.com> 6.10.3-1.01
-- Rebuild from EPEL as a bridge from the nodesource release to EPEL
-  - add a patch to fix building with long paths
-  - don't Requires: npm
+* Thu Sep 07 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.3-1
+- Update to 6.11.3
+- https://nodejs.org/en/blog/release/v6.11.3/
+- remove openssl 1.0.1 patches
+
+* Wed Aug 23 2017 Stephen Gallagher <sgallagh@redhat.com> - 1:6.11.2-2
+- Move to requiring OpenSSL 1.0.2
+- Unbundle http-parser again
+
+* Tue Aug 22 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.2-1.3
+- Run gyp on http-parser
+
+* Tue Aug 15 2017 Stephen Gallagher <sgallagh@redhat.com> - 1:6.11.2-1.2
+- Add bundled Provides for http-parser
+
+* Tue Aug 15 2017 Stephen Gallagher <sgallagh@redhat.com> - 1:6.11.2-1.1
+- Temporarily bundle http-parser
+- Resolves: RHBZ#1481470
+
+* Wed Aug 02 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.2-1
+- Update to 6.11.2
+- https://nodejs.org/en/blog/release/v6.11.2/
+- remove GCC 7 patch merged upstream
+
+* Thu Jul 13 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.1-1
+- Security update (https://nodejs.org/en/blog/vulnerability/july-2017-security-releases/)
+
+* Thu Jun 29 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.0-2
+- Fix typo
+
+* Thu Jun 29 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.0-1
+- Update to 6.11.0
+- https://nodejs.org/en/blog/release/v6.10.3/
+- explicitly depend on http-parser (RHBZ#1457763)
 
 * Wed May 10 2017 Stephen Gallagher <sgallagh@redhat.com> - 1:6.10.3-1
 - Update to 6.10.3 (LTS)

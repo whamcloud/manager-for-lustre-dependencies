@@ -1,14 +1,14 @@
-From 54cb96f338bd162dcf1301b7d7a46eea2a56befb Mon Sep 17 00:00:00 2001
+From 8946146b37e4170c406fbdd7c60f1bbb79a9311a Mon Sep 17 00:00:00 2001
 From: Zuzana Svetlikova <zsvetlik@redhat.com>
-Date: Wed, 22 Mar 2017 19:13:10 +0100
-Subject: [PATCH] Disable running gyp files for bundled deps
+Date: Wed, 6 Sep 2017 14:17:21 +0200
+Subject: [PATCH] dont run gyp on shared deps
 
 ---
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index a2b64e63b4..7b0847d1d5 100644
+index 577d0e232a..bb47a1b95e 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -77,7 +77,7 @@ $(NODE_G_EXE): config.gypi out/Makefile
@@ -21,5 +21,5 @@ index a2b64e63b4..7b0847d1d5 100644
  
  config.gypi: configure
 -- 
-2.12.0
+2.14.1
 
