@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.2.2
 %global pypi_name iml-common
 %global major_minor 1.3
-%global patch 2
+%global patch 3
 %global rpm_name %{pypi_name}%{major_minor}
 
 Name:           python-%{rpm_name}
@@ -59,6 +59,9 @@ mv %{pypi_name}-%{version} %{rpm_name}-%{version}
 %{python2_sitelib}/iml_common-%{version}-py?.?.egg-info
 
 %changelog
+* Wed Oct 17 2017 Tom Nabarro <tom.nabarro@intel.com> 1.3.3-1
+- Update to upstream 1.3.3
+
 * Wed Oct 11 2017 Tom Nabarro <tom.nabarro@intel.com> 1.3.2-1
 - Update to upstream 1.3.2
 
