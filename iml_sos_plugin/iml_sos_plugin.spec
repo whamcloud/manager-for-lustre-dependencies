@@ -1,7 +1,7 @@
 %global pypi_name iml_sos_plugin
 
 Name:           %{pypi_name}
-Version:        2.0.2
+Version:        2.0.4
 Release:        1%{?dist}
 Summary:        A sosreport plugin for collecting IML data.
 License:        MIT
@@ -14,6 +14,7 @@ BuildRequires:  python-setuptools
 BuildRequires:  python2-setuptools_scm
 
 Requires:       sos
+Obsoletes:      chroma-diagnostics
 
 %description
 A sosreport plugin for collecting IML data.
@@ -33,11 +34,15 @@ mv %{buildroot}/%{python2_sitelib}/iml_sos_plugin/iml.py* %{buildroot}/%{python2
 
 %files
 %{_bindir}/iml-diagnostics
+%{_bindir}/chroma-diagnostics
 %{python2_sitelib}/%{pypi_name}
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 %{python2_sitelib}/sos/plugins/iml.py*
 
 %changelog
+* Wed Nov 15 2017 Will Johnson <william.c.johnson@intel.com> 2.0.4-1
+- Obsoletes chroma-diagnostics
+
 * Thu Oct 12 2017 Joe Grund <joe.grund@intel.com> 2.0.2-1
 - Fix log-size param to dash-case.
 
