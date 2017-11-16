@@ -42,6 +42,7 @@ mv %{buildroot}/%{python2_sitelib}/iml_sos_plugin/iml.py* %{buildroot}/%{python2
 %changelog
 * Wed Nov 15 2017 Will Johnson <william.c.johnson@intel.com> 2.0.4-1
 - Obsoletes chroma-diagnostics
+- Remove zfs plugin
 
 * Thu Oct 12 2017 Joe Grund <joe.grund@intel.com> 2.0.2-1
 - Fix log-size param to dash-case.
