@@ -7,7 +7,7 @@ Summary: Chroma Agent
 Name: %{name}
 Version: %{version}
 Release: %{package_release}%{?dist}
-Source0: https://github.com/intel-hpdd/iml-agent/archive/%{version}.tar.gz
+Source0: https://github.com/intel-hpdd/iml-agent/archive/modulize.tar.gz
 License: Proprietary
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -81,7 +81,7 @@ Requires: %{name} = %{version}-%{release}
 This package contains the .py files stripped out of the production build.
 
 %prep
-%setup -n %{name}-%{version}
+%setup -n iml-agent-modulize
 
 %build
 %{__python} setup.py build
