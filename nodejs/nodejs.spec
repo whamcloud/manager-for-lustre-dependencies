@@ -1,6 +1,7 @@
 %global with_debug 1
 
-%{!?_with_bootstrap: %global bootstrap 0}
+# bundle some dependencies missing in Modularity
+%bcond_with bootstrap
 
 %{?!_pkgdocdir:%global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
@@ -17,8 +18,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 6
-%global nodejs_minor 11
-%global nodejs_patch 3
+%global nodejs_minor 12
+%global nodejs_patch 0
 %global nodejs_abi %{nodejs_major}.%{nodejs_minor}
 %global nodejs_version %{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}
 %global nodejs_release 1.01
@@ -28,7 +29,7 @@
 %global v8_major 5
 %global v8_minor 1
 %global v8_build 281
-%global v8_patch 107
+%global v8_patch 108
 # V8 presently breaks ABI at least every x.y release while never bumping SONAME
 %global v8_abi %{v8_major}.%{v8_minor}
 %global v8_version %{v8_major}.%{v8_minor}.%{v8_build}.%{v8_patch}
@@ -44,6 +45,12 @@
 %global http_parser_minor 7
 %global http_parser_patch 0
 %global http_parser_version %{http_parser_major}.%{http_parser_minor}.%{http_parser_patch}
+
+# libuv - from deps/uv/include/uv-version.h
+%global libuv_major 1
+%global libuv_minor 15
+%global libuv_patch 0
+%global libuv_version %{libuv_major}.%{libuv_minor}.%{libuv_patch}
 
 # punycode - from lib/punycode.js
 # Note: this was merged into the mainline since 0.6.x
@@ -98,19 +105,22 @@ Patch1: 0001-Disable-running-gyp-files-for-bundled-deps.patch
 
 Patch100: 0100-Use-xargs-for-long-commands.patch
 
-BuildRequires: python-devel
-BuildRequires: libuv-devel >= 1:1.9.1
-Requires: libuv >= 1:1.9.1
+BuildRequires: python2-devel
+Requires: http-parser >= 2.7.0
 BuildRequires: libicu-devel
 BuildRequires: zlib-devel
-BuildRequires: gcc >= 4.8.0
-BuildRequires: gcc-c++ >= 4.8.0
+BuildRequires: gcc >= 4.8.5
+BuildRequires: gcc-c++ >= 4.8.5
 
-%if ! 0%{?bootstrap}
+%if %{with bootstrap}
+Provides: bundled(http-parser) = %{http_parser_version}
+Provides: bundled(libuv) = %{libuv_version}
+%else
 BuildRequires: systemtap-sdt-devel
 BuildRequires: http-parser-devel >= 2.7.0
-%else
-Provides: bundled(http-parser) = %{http_parser_version}
+BuildRequires: libuv-devel >= 1:1.9.1
+Requires: libuv >= 1:1.9.1
+
 %endif
 
 %if 0%{?fedora} > 25
@@ -119,7 +129,7 @@ BuildRequires: compat-openssl10-devel >= 1:1.0.2
 BuildRequires: openssl-devel >= 1:1.0.2
 %endif
 
-# we need the system certificate store
+# we need the system certificate store when Patch2 is applied
 Requires: ca-certificates
 
 #we need ABI virtual provides where SONAMEs aren't enough/not present so deps
@@ -136,7 +146,7 @@ Provides: nodejs(engine) = %{nodejs_version}
 # The ham-radio group has agreed to rename their binary for us, but
 # in the meantime, we're setting an explicit Conflicts: here
 Conflicts: node <= 0.3.2-12
-Obsoletes: nodejs < 1:6.11.3-1
+Obsoletes: nodejs < 1:6.12.0-1
 
 # The punycode module was absorbed into the standard library in v0.6.
 # It still exists as a seperate package for the benefit of users of older
@@ -163,6 +173,10 @@ Provides: bundled(c-ares) = %{c_ares_version}
 # See https://github.com/nodejs/node/commit/d726a177ed59c37cf5306983ed00ecd858cfbbef
 Provides: bundled(v8) = %{v8_version}
 
+%if !0%{?epel}
+Recommends: npm = %{npm_epoch}:%{npm_version}-%{npm_release}%{?dist}
+%endif
+
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime
@@ -175,12 +189,15 @@ real-time applications that run across distributed devices.
 Summary: JavaScript runtime - development headers
 Group: Development/Languages
 Requires: %{name}%{?_isa} = %{epoch}:%{nodejs_version}-%{nodejs_release}%{?dist}
-Requires: libuv-devel%{?_isa}
 Requires: openssl-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 Requires: nodejs-packaging
-%if ! 0%{?bootstrap}
+#%if ! 0%{?bootstrap}
+%if %{with bootstrap}
+#deps are bundled
+%else
 Requires: http-parser-devel%{?_isa}
+Requires: libuv-devel%{?_isa}
 %endif
 
 %description devel
@@ -227,9 +244,7 @@ The API documentation for the Node.js JavaScript runtime.
 
 # remove bundled dependencies that we aren't building
 %patch1 -p1
-rm -rf deps/http-parser \
-       deps/icu-small \
-       deps/uv \
+rm -rf deps/icu-small \
        deps/zlib
 
 %patch100 -p0
@@ -253,12 +268,10 @@ export CXXFLAGS='%{optflags} -g \
 export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
 
-%if ! 0%{?bootstrap}
+%if %{with bootstrap}
 ./configure --prefix=%{_prefix} \
            --shared-openssl \
            --shared-zlib \
-           --shared-libuv \
-           --shared-http-parser \
            --without-dtrace \
            --with-intl=system-icu \
            --openssl-use-def-ca-store
@@ -267,7 +280,8 @@ export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
            --shared-openssl \
            --shared-zlib \
            --shared-libuv \
-           --without-dtrace \
+           --shared-http-parser \
+           --with-dtrace \
            --with-intl=system-icu \
            --openssl-use-def-ca-store
 %endif
@@ -377,6 +391,15 @@ NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules %{buildroot}/%{_bindir}/node -
 %dir %{_datadir}/systemtap
 %dir %{_datadir}/systemtap/tapset
 %{_datadir}/systemtap/tapset/node.stp
+
+#%if ! 0%{?bootstrap}
+%if %{with bootstrap}
+#no dtrace
+%else
+%dir %{_usr}/lib/dtrace
+%{_usr}/lib/dtrace/node.d
+%endif
+
 %{_rpmconfigdir}/fileattrs/nodejs_native.attr
 %{_rpmconfigdir}/nodejs_native.req
 %license LICENSE
@@ -411,10 +434,24 @@ NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules %{buildroot}/%{_bindir}/node -
 %{_pkgdocdir}/npm/doc
 
 %changelog
-* Thu Oct 19 2017 Brian J. Murrell <brian.murrell@intel.com> 6.11.3-1.01
+* Thu Nov 30 2017 Brian J. Murrell <brian.murrell@intel.com> - 1:6.12.0-1.01
 - Rebuild from EPEL as a bridge from the nodesource release to EPEL
   - add a patch to fix building with long paths
   - don't Requires: npm
+
+* Mon Nov 13 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.12.0-1
+- Update to 6.12.0
+
+* Thu Oct 26 2017 Stephen Gallagher <sgallagh@redhat.com> - 1:6.11.5-1
+- Update to 6.11.5 security release
+
+* Fri Oct 06 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.4-1
+- Update to 6.11.4
+- https://nodejs.org/en/blog/release/v6.11.4/
+- use bcond macro
+
+* Thu Sep 21 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6:11.3-2
+- Adjust spec for modularity
 
 * Thu Sep 07 2017 Zuzana Svetlikova <zsvetlik@redhat.com> - 1:6.11.3-1
 - Update to 6.11.3
