@@ -1,0 +1,4 @@
+*.tar.gz
+_topdir
+copr-local.mk
+deps
