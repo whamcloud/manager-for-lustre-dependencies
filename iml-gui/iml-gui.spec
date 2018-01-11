@@ -32,7 +32,7 @@ rm -rf %{buildroot}
 /usr/lib/iml-manager/%{name}
 
 %changelog
-* Thu Jan 11 2017 Joe Grund <joe.grund@intel.com> - 6.2.6-1
+* Thu Jan 11 2018 Joe Grund <joe.grund@intel.com> - 6.2.6-1
 - fetch field with managed / monitor info.
 
 * Mon Oct 23 2017 Joe Grund <joe.grund@intel.com> - 6.2.5-1
