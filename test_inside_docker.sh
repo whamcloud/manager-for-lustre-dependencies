@@ -3,7 +3,7 @@
 OS_VERSION=$1
 
 echo 'travis_fold:start:yum'
-yum -y install git mock rpm-build ed sudo
+yum -y install git mock rpm-build ed sudo make rpmdevtools
 echo 'travis_fold:end:yum'
 
 # add our repos to the mock configuration
@@ -24,7 +24,7 @@ w
 q
 EOF
 
-eval $(grep -e "^changed_dirs=" /manager-for-lustre-dependencies/env)
+eval $(grep -e "^changed_dirs=" -e "^TRAVIS_PULL_REQUEST_BRANCH=" /manager-for-lustre-dependencies/env)
 
 groupadd --gid $(stat -c '%g' /manager-for-lustre-dependencies) mocker
 useradd --uid $(stat -c '%u' /manager-for-lustre-dependencies) --gid $(stat -c '%g' /manager-for-lustre-dependencies) mocker
@@ -36,9 +36,16 @@ for SUBDIR in $changed_dirs; do
     if ! su - mocker <<EOF; then
 set -xe
 cd /manager-for-lustre-dependencies/$SUBDIR
-rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ \$PWD --define _sourcedir\ \$PWD *.spec
+if [ ! -f Makefile ]; then
+    rpmbuild -bs --define epel\ 1 --define _srcrpmdir\ \$PWD --define _sourcedir\ \$PWD *.spec
+fi
 echo "travis_fold:start:mock"
-mock \$PWD/*.src.rpm
+if [ -f Makefile ]; then
+    make DIST_VERSION=$TRAVIS_PULL_REQUEST_BRANCH test
+else
+    # legacy
+    mock \$PWD/*.src.rpm
+fi
 echo "travis_fold:end:mock"
 EOF
         let rc+=1
