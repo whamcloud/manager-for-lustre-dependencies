@@ -4,7 +4,7 @@
 
 Name:           django-tastypie
 Version:        0.9.16
-Release:        0.01%{?dist}
+Release:        0.02%{?dist}
 Summary:        Tastypie is an webservice API framework for Django
 
 Group:          Development/Languages
@@ -21,6 +21,7 @@ Requires:       python-mimeparse >= 0.1.3
 Requires:       python-dateutil >= 1.5
 Requires:       python-dateutil < 2.0
 Requires:       Django >= 1.2.0
+Provides:       python2-django-tastypie
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -83,6 +84,9 @@ cp -p LICENSE README.rst AUTHORS -t %{buildroot}%{docdir}
 %exclude %{docdir}/html/.buildinfo
 
 %changelog
+* Fri Jan 25 2018 Joe Grund <jgrund@whamcloud.com> 0.9.16-0.02
+- Bump release to account for new provides
+
 * Tue Jun 27 2017 Joe Grund <joe.grund@intel.com> 0.9.16-0.01
 - Bump version to 0.9.16 (joe.grund@intel.com)
 

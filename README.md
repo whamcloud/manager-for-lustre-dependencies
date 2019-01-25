@@ -1,12 +1,12 @@
 # manager-for-lustre-dependencies
 
-[![Build Status](https://travis-ci.org/intel-hpdd/manager-for-lustre-dependencies.svg?branch=master)](https://travis-ci.org/intel-hpdd/manager-for-lustre-dependencies)
+[![Build Status](https://travis-ci.org/whamcloud/manager-for-lustre-dependencies.svg?branch=master)](https://travis-ci.org/whamcloud/manager-for-lustre-dependencies)
 
 Dependencies needed for IML not available elsewhere.
 
 ## Overview
 
-This repo is organized such that each directory cooresponds to a dependency. 
+This repo is organized such that each directory cooresponds to a dependency.
 
 The dependencies are reflected in our [copr project](https://copr.fedorainfracloud.org/coprs/managerforlustre/manager-for-lustre/).
 
@@ -23,4 +23,3 @@ In the directory you want to update:
 3. Upload your change as a PR and pass review.
 4. Tag your change using [tito](https://github.com/dgoodwin/tito): `tito tag --no-auto-changelog --keep-version`
 5. Push your change, a gatekeeper will land, and a build will be kicked off.
-
