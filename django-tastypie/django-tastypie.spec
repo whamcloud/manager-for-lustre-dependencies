@@ -84,7 +84,7 @@ cp -p LICENSE README.rst AUTHORS -t %{buildroot}%{docdir}
 %exclude %{docdir}/html/.buildinfo
 
 %changelog
-* Fri Jan 25 2018 Joe Grund <jgrund@whamcloud.com> 0.9.16-0.02
+* Fri Jan 25 2019 Joe Grund <jgrund@whamcloud.com> 0.9.16-0.02
 - Bump release to account for new provides
 
 * Tue Jun 27 2017 Joe Grund <joe.grund@intel.com> 0.9.16-0.01
