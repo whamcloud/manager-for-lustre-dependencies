@@ -16,9 +16,10 @@ baseurl=https://copr-be.cloud.fedoraproject.org/results/managerforlustre/manager
 enabled=1
 
 [lustre-client]
-name=added from: https://build.hpdd.intel.com/job/lustre-master/lastSuccessfulBuild/arch=x86_64,build_type=client,distro=el7,ib_stack=inkernel/artifact/artifacts/
-baseurl=https://build.hpdd.intel.com/job/lustre-master/lastSuccessfulBuild/arch=x86_64%2Cbuild_type=client%2Cdistro=el7%2Cib_stack=inkernel/artifact/artifacts/
+name=Lustre Client
+baseurl=https://downloads.whamcloud.com/public/lustre/lustre-2.10.6/el7/client/
 enabled=1
+gpgcheck=0
 .
 w
 q
