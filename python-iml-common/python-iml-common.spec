@@ -61,10 +61,10 @@ mv %{pypi_name}-%{version} %{rpm_name}-%{version}
 %{python2_sitelib}/iml_common-%{version}-py?.?.egg-info
 
 %changelog
-* Thu Feb 13 2018 Tom Nabarro <tom.nabarro@intel.com> 1.3.3-2
+* Tue Feb 13 2018 Tom Nabarro <tom.nabarro@intel.com> 1.3.3-2
 - Add explicit dependency on python-lockfile
 
-* Wed Oct 17 2017 Tom Nabarro <tom.nabarro@intel.com> 1.3.3-1
+* Tue Oct 17 2017 Tom Nabarro <tom.nabarro@intel.com> 1.3.3-1
 - Update to upstream 1.3.3
 
 * Wed Oct 11 2017 Tom Nabarro <tom.nabarro@intel.com> 1.3.2-1
